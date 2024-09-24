@@ -9,9 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.5.1",
+    "@supabase/supabase-js": "^2.45.4",
+    "@trpc/client": "11.0.0-rc.528",
+    "@trpc/server": "11.0.0-rc.528",
+    "@vercel/postgres": "^0.10.0",
     "next": "15.0.0-canary.130",
     "react": "19.0.0-rc-eb3ad065-20240822",
-    "react-dom": "19.0.0-rc-eb3ad065-20240822"
+    "react-dom": "19.0.0-rc-eb3ad065-20240822",
+    "vercel": "^37.5.4",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20.16.6",
