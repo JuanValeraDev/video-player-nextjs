@@ -2,6 +2,9 @@
 
 import {trpc} from '../_trcp/client'
 import {useEffect, useState} from 'react'
+import { Button } from "@/components/ui/button"
+import VideoListUI from '@/components/ui/video-list'
+
 
 export default function VideoList() {
     const {data} = trpc.getVideos.useQuery()
@@ -36,12 +39,9 @@ export default function VideoList() {
                         <div key={video.id}>
                             <p>{video.title}</p>
                             <video  width={300} height={150} src={video.url}></video>
-                            <div>
-                                <p>{video.description}</p>
-                            </div>
                             <div className={"flex flex-row"}>
                                 <span>{video.watch_count}</span>
-                                <button onClick={() => handleButtonLikesClick(video.id)}>{video.likes_count}</button>
+                                <button  onClick={() => handleButtonLikesClick(video.id)}>{video.likes_count}</button>
                             </div>
                         </div>
                     ))
