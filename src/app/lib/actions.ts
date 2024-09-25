@@ -31,8 +31,23 @@ export async function createClient() {
     )
 }
 
-export  async function getVideos() {
+export async function getVideos() {
     const supabase = await createClient();
-    const {data: videos} = await supabase.from("videos").select();
+    const {data: videos} = await supabase.from("videos")
+        .select()
+        .order('created_at', {ascending: true})
     return {data: videos}
+}
+
+export async function incrementLikes(videoId: string) {
+    const supabase = await createClient()
+    const {data, error} = await supabase
+        .rpc('increment_likes', {video_id: videoId})
+        .single()
+
+    if (error) {
+        throw new Error(`Error incrementing likes: ${error.message}`)
+    }
+
+    return data
 }
