@@ -14,9 +14,9 @@
     "@trpc/client": "11.0.0-rc.528",
     "@trpc/server": "11.0.0-rc.528",
     "@vercel/postgres": "^0.10.0",
-    "next": "15.0.0-canary.130",
-    "react": "19.0.0-rc-eb3ad065-20240822",
-    "react-dom": "19.0.0-rc-eb3ad065-20240822",
+    "next": "15.0.0-rc.0",
+    "react": "19.0.0-rc-04bd67a4-20240924",
+    "react-dom": "19.0.0-rc-04bd67a4-20240924",
     "vercel": "^37.5.4",
     "zod": "^3.23.8"
   },
