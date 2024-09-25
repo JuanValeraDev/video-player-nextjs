@@ -1,7 +1,10 @@
+'use server'
+
 import {createServerClient} from '@supabase/ssr'
 import {cookies} from 'next/headers'
 
-export function createClient() {
+
+export async function createClient() {
     const cookieStore = cookies()
 
     return createServerClient(
@@ -26,4 +29,10 @@ export function createClient() {
             },
         }
     )
+}
+
+export  async function getVideos() {
+    const supabase = await createClient();
+    const {data: videos} = await supabase.from("videos").select();
+    return {data: videos}
 }

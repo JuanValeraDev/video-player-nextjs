@@ -1,8 +1,15 @@
-import { createClient } from './lib/actions';
+import {createTRPCProxyClient, httpBatchLink} from "@trpc/client";
+import {AppRouter} from "./api/trpc/[trpc]";
 
-export default async function Videos() {
-  const supabase = createClient();
-  const { data: videos } = await supabase.from("videos").select();
+const client = createTRPCProxyClient<AppRouter>({
+    links: [httpBatchLink({
+        url: "http://localhost:3000"
+    })]
+})
 
-  return <pre>{JSON.stringify(videos, null, 2)}</pre>
+export default function Home() {
+    const result = client.sayHi.query()
+    return (
+        <div>{result}</div>
+    )
 }
