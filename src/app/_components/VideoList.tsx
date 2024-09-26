@@ -5,12 +5,13 @@ import {useEffect, useState} from 'react'
 import {Button} from "@/components/ui/button"
 import {Play, Eye, ThumbsUp} from "lucide-react"
 import {CardTitle} from "@/components/ui/card"
+import {Video} from "@/types/Video";
 
 interface VideoListProps {
     handleVideoPlaying: (video: Video) => void;
 }
 
-export default function VideoList({ handleVideoPlaying }: VideoListProps) {
+export default ({handleVideoPlaying}: VideoListProps) => {
 
     const {data} = trpc.getVideos.useQuery()
     const [videos, setVideos] = useState<any[]>([])

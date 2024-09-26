@@ -19,7 +19,14 @@ interface VideoPlayerCardProps {
 
 export default function VideoPlayerCard({video, resetPlayer}: VideoPlayerCardProps) {
 
-    const [currentVideo, setCurrentVideo] = useState({})
+    const [currentVideo, setCurrentVideo] = useState({
+        id: "",
+        url: "",
+        title: "",
+        description: "",
+        watch_count: 0,
+        likes_count: 0,
+    })
 
     useEffect(() => {
         if (video) {
@@ -32,7 +39,7 @@ export default function VideoPlayerCard({video, resetPlayer}: VideoPlayerCardPro
     }
 
     return (
-        <Card className="w-full">
+        <Card className=" lg:mx-10">
             <CardContent className="p-0">
                 <div>
                     <VideoPlayer video={currentVideo} resetPlayer={resetPlayer}/>

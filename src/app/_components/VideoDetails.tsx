@@ -4,26 +4,23 @@ import {useEffect, useState} from 'react'
 import {Button} from "@/components/ui/button"
 import {ThumbsUp, Eye} from "lucide-react"
 import {trpc} from '../_trcp/client'
+import {VideoProps} from '@/types/Video'
 
-interface Video {
-    id: string
-    title: string
-    description: string
-    watchCount: number
-    likesCount: number
-}
 
-interface VideoDetailsProps {
-    video?: Video
-}
-
-export default function VideoDetails({video}: VideoDetailsProps) {
+export default function VideoDetails({video}: VideoProps) {
     if (!video) {
         return <div>Loading...</div>
     }
     const [likes, setLikes] = useState(0)
     const incrementLikesMutation = trpc.incrementLikes.useMutation()
-    const [currentVideoDetails, setCurrentVideoDetails] = useState({})
+    const [currentVideoDetails, setCurrentVideoDetails] = useState({
+        id: "",
+        url: "",
+        title: "",
+        description: "",
+        watch_count: 0,
+        likes_count: 0,
+    })
 
 
     const handleLikeClick = () => {

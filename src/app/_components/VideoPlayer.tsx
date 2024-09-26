@@ -7,20 +7,10 @@ import {
     Play, Pause, SkipBack, SkipForward, Volume2, VolumeX,
     Maximize, Minimize, Settings
 } from 'lucide-react'
+import {VideoProps} from "@/types/Video";
 
-interface Video {
-    id: string
-    title: string
-    description: string
-    watchCount: number
-    likesCount: number
-}
 
-interface VideoPlayerProps {
-    video?: Video
-}
-
-export default function VideoPlayer({video, resetPlayer}: VideoPlayerProps) {
+export default function VideoPlayer({video, resetPlayer}: VideoProps) {
 
     const [isPlaying, setIsPlaying] = useState(false)
     const [progress, setProgress] = useState(0)
@@ -30,8 +20,12 @@ export default function VideoPlayer({video, resetPlayer}: VideoPlayerProps) {
     const [currentTime, setCurrentTime] = useState(0)
     const [playbackRate, setPlaybackRate] = useState(1)
     const [isFullscreen, setIsFullscreen] = useState(false)
+    let url = ""
 
-    const {url} = video
+    if (video) {
+        url = video.url
+    }
+
     const [videoUrl, setVideoUrl] = useState(url)
 
     const videoRef = useRef<HTMLVideoElement>(null)
@@ -87,7 +81,6 @@ export default function VideoPlayer({video, resetPlayer}: VideoPlayerProps) {
             setIsPlaying(!isPlaying)
         }
     }
-
 
 
     const handleProgressChange = (newValue: number[]) => {
@@ -155,7 +148,7 @@ export default function VideoPlayer({video, resetPlayer}: VideoPlayerProps) {
              className="relative w-full h-full mx-auto bg-gray-900 rounded-lg shadow-xl">
             <video
                 ref={videoRef}
-                className="w-full h-auto"
+                className="w-full h-auto object-contain"
                 src={videoUrl}
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
