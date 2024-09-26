@@ -20,7 +20,7 @@ interface VideoPlayerProps {
     video?: Video
 }
 
-export default function VideoPlayer({video}: VideoPlayerProps) {
+export default function VideoPlayer({video, resetPlayer}: VideoPlayerProps) {
 
     const [isPlaying, setIsPlaying] = useState(false)
     const [progress, setProgress] = useState(0)
@@ -60,6 +60,23 @@ export default function VideoPlayer({video}: VideoPlayerProps) {
         setVideoUrl(url)
     }, [url])
 
+    useEffect(() => {
+        if (resetPlayer) {
+            setIsPlaying(false)
+            setProgress(0)
+            setVolume(1)
+            setIsMuted(false)
+            setDuration(0)
+            setCurrentTime(0)
+            setPlaybackRate(1)
+            setIsFullscreen(false)
+            if (videoRef.current) {
+                videoRef.current.pause()
+                videoRef.current.currentTime = 0
+            }
+        }
+    }, [resetPlayer])
+
     const togglePlay = () => {
         if (videoRef.current) {
             if (isPlaying) {
@@ -70,6 +87,8 @@ export default function VideoPlayer({video}: VideoPlayerProps) {
             setIsPlaying(!isPlaying)
         }
     }
+
+
 
     const handleProgressChange = (newValue: number[]) => {
         const [value] = newValue

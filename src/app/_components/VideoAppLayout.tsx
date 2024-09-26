@@ -1,6 +1,6 @@
 "use client"
 
-import React, {Suspense, useState} from 'react'
+import React, {Suspense, useEffect, useState} from 'react'
 import VideoList from './VideoList'
 import VideoPlayerCard from "@/app/_components/VideoPlayerCard"
 import {Loading} from "@/app/_components/Loading";
@@ -8,6 +8,7 @@ import {Loading} from "@/app/_components/Loading";
 export default function VideoAppLayout() {
 
     const [videoPlaying, setVideoPlaying] = useState({})
+    const [resetPlayer, setResetPlayer] = useState(false)
 
     interface Video {
         id: string
@@ -20,12 +21,20 @@ export default function VideoAppLayout() {
 
     const handleVideoPlaying = (video: Video) => {
         setVideoPlaying(video)
-        console.log(video)
+        setResetPlayer(true)
     }
+    useEffect(() => {
+        if (resetPlayer) {
+            setResetPlayer(false)
+        }
+    }, [resetPlayer]);
 
 
     return (
         <div className=" flex flex-col p-0">
+            <header className="bg-primary text-primary-foreground p-4">
+                <h1 className="text-2xl font-bold ms-10">Video Player</h1>
+            </header>
             <div className="flex-grow overflow-hidden">
                 <div className="h-full container mx-auto p-4">
                     <div className="flex flex-col lg:flex-row gap-4 h-full">
@@ -33,6 +42,7 @@ export default function VideoAppLayout() {
                             <Suspense fallback={<Loading/>}>
                                 <VideoPlayerCard
                                     video={videoPlaying}
+                                    resetPlayer={resetPlayer}
                                 />
                             </Suspense>
                         </div>
@@ -44,6 +54,9 @@ export default function VideoAppLayout() {
                     </div>
                 </div>
             </div>
+            <footer className="bg-primary text-primary-foreground p-4 text-center">
+                <span className="text-l font-bold">Made with ❤️ by JuanValeraDev</span>
+            </footer>
         </div>
     )
 }

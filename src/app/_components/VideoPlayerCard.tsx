@@ -13,10 +13,11 @@ interface VideoPlayerCardProps {
         description: string
         watch_count: number
         likes_count: number
-    }
+    },
+    resetPlayer: boolean
 }
 
-export default function VideoPlayerCard({video}: VideoPlayerCardProps) {
+export default function VideoPlayerCard({video, resetPlayer}: VideoPlayerCardProps) {
 
     const [currentVideo, setCurrentVideo] = useState({})
 
@@ -34,7 +35,7 @@ export default function VideoPlayerCard({video}: VideoPlayerCardProps) {
         <Card className="w-full">
             <CardContent className="p-0">
                 <div>
-                    <VideoPlayer video={currentVideo}/>
+                    <VideoPlayer video={currentVideo} resetPlayer={resetPlayer}/>
                 </div>
                 <div className="p-6">
                     <VideoDetails
