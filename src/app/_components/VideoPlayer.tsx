@@ -8,11 +8,20 @@ import {
     Maximize, Minimize, Settings
 } from 'lucide-react'
 
-interface VideoPlayerProps {
-    videoUrlProp?: string
+interface Video {
+    id: string
+    title: string
+    description: string
+    watchCount: number
+    likesCount: number
 }
 
-export default function VideoPlayer({videoUrlProp}: VideoPlayerProps) {
+interface VideoPlayerProps {
+    video?: Video
+}
+
+export default function VideoPlayer({video}: VideoPlayerProps) {
+
     const [isPlaying, setIsPlaying] = useState(false)
     const [progress, setProgress] = useState(0)
     const [volume, setVolume] = useState(1)
@@ -21,7 +30,9 @@ export default function VideoPlayer({videoUrlProp}: VideoPlayerProps) {
     const [currentTime, setCurrentTime] = useState(0)
     const [playbackRate, setPlaybackRate] = useState(1)
     const [isFullscreen, setIsFullscreen] = useState(false)
-    const [videoUrl, setVideoUrl] = useState("")
+
+    const {url} = video
+    const [videoUrl, setVideoUrl] = useState(url)
 
     const videoRef = useRef<HTMLVideoElement>(null)
     const playerRef = useRef<HTMLDivElement>(null)
@@ -46,8 +57,8 @@ export default function VideoPlayer({videoUrlProp}: VideoPlayerProps) {
     }, [])
 
     useEffect(() => {
-        if (videoUrlProp) setVideoUrl(videoUrlProp)
-    }, [videoUrl]);
+        setVideoUrl(url)
+    }, [url])
 
     const togglePlay = () => {
         if (videoRef.current) {
@@ -122,7 +133,7 @@ export default function VideoPlayer({videoUrlProp}: VideoPlayerProps) {
 
     return (
         <div ref={playerRef}
-             className="relative w-full max-w-4xl mx-auto bg-gray-900 rounded-lg overflow-hidden shadow-xl mt-2">
+             className="relative w-full h-full mx-auto bg-gray-900 rounded-lg shadow-xl">
             <video
                 ref={videoRef}
                 className="w-full h-auto"

@@ -1,11 +1,11 @@
 "use client"
 
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { ThumbsUp, Eye } from "lucide-react"
-import { trpc } from '../_trcp/client'
+import {useEffect, useState} from 'react'
+import {Button} from "@/components/ui/button"
+import {ThumbsUp, Eye} from "lucide-react"
+import {trpc} from '../_trcp/client'
 
-interface VideoDetailsProps {
+interface Video {
     id: string
     title: string
     description: string
@@ -13,12 +13,21 @@ interface VideoDetailsProps {
     likesCount: number
 }
 
-export default function VideoDetails({ id, title, description, watchCount, likesCount }: VideoDetailsProps) {
-    const [likes, setLikes] = useState(likesCount)
+interface VideoDetailsProps {
+    video?: Video
+}
+
+export default function VideoDetails({video}: VideoDetailsProps) {
+    if (!video) {
+        return <div>Loading...</div>
+    }
+    const [likes, setLikes] = useState(0)
     const incrementLikesMutation = trpc.incrementLikes.useMutation()
+    const [currentVideoDetails, setCurrentVideoDetails] = useState({})
+
 
     const handleLikeClick = () => {
-        incrementLikesMutation.mutate({ videoId: id }, {
+        incrementLikesMutation.mutate({videoId: currentVideoDetails.id}, {
             onSuccess: () => {
                 setLikes(prevLikes => prevLikes + 1)
             },
@@ -28,18 +37,22 @@ export default function VideoDetails({ id, title, description, watchCount, likes
         })
     }
 
+    useEffect(() => {
+        setCurrentVideoDetails(video)
+    }, [video]);
+
     return (
-        <div className="bg-card text-card-foreground p-6 rounded-lg shadow-md">
-            <h1 className="text-2xl font-bold mb-4">{title}</h1>
+        <div className="space-y-4">
+            <h1 className="text-2xl font-bold mb-4">{currentVideoDetails.title}</h1>
             <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-4">
                     <div className="flex items-center">
-                        <Eye className="h-5 w-5 mr-2 text-muted-foreground" />
-                        <span className="text-muted-foreground">{watchCount.toLocaleString()} views</span>
+                        <Eye className="h-5 w-5 mr-2 text-muted-foreground"/>
+                        <span className="text-muted-foreground">{currentVideoDetails.watch_count} views</span>
                     </div>
                     <div className="flex items-center">
-                        <ThumbsUp className="h-5 w-5 mr-2 text-muted-foreground" />
-                        <span className="text-muted-foreground">{likes.toLocaleString()} likes</span>
+                        <ThumbsUp className="h-5 w-5 mr-2 text-muted-foreground"/>
+                        <span className="text-muted-foreground">{currentVideoDetails.likes_count} likes</span>
                     </div>
                 </div>
                 <Button
@@ -49,11 +62,11 @@ export default function VideoDetails({ id, title, description, watchCount, likes
                     className="flex items-center"
                     aria-label="Like this video"
                 >
-                    <ThumbsUp className="h-4 w-4 mr-2" />
+                    <ThumbsUp className="h-4 w-4 mr-2"/>
                     Like
                 </Button>
             </div>
-            <p className="text-muted-foreground">{description}</p>
+            <p className="text-muted-foreground">{currentVideoDetails.description}</p>
         </div>
     )
 }

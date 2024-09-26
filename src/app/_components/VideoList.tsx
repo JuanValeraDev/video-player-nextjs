@@ -1,13 +1,18 @@
 'use client'
 
-import { trpc } from '../_trcp/client'
-import { useEffect, useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Play, Eye, ThumbsUp } from "lucide-react"
-import { CardTitle } from "@/components/ui/card"
+import {trpc} from '../_trcp/client'
+import {useEffect, useState} from 'react'
+import {Button} from "@/components/ui/button"
+import {Play, Eye, ThumbsUp} from "lucide-react"
+import {CardTitle} from "@/components/ui/card"
 
-export default function VideoList() {
-    const { data } = trpc.getVideos.useQuery()
+interface VideoListProps {
+    handleVideoPlaying: (video: Video) => void;
+}
+
+export default function VideoList({ handleVideoPlaying }: VideoListProps) {
+
+    const {data} = trpc.getVideos.useQuery()
     const [videos, setVideos] = useState<any[]>([])
     const incrementLikesMutation = trpc.incrementLikes.useMutation()
 
@@ -18,10 +23,10 @@ export default function VideoList() {
     }, [data])
 
     const handleButtonLikesClick = (id: string) => {
-        incrementLikesMutation.mutate({ videoId: id }, {
+        incrementLikesMutation.mutate({videoId: id}, {
             onSuccess: () => {
                 setVideos(videos.map(video =>
-                    video.id === id ? { ...video, likes_count: video.likes_count + 1 } : video
+                    video.id === id ? {...video, likes_count: video.likes_count + 1} : video
                 ))
             },
             onError: (error) => {
@@ -30,17 +35,9 @@ export default function VideoList() {
         })
     }
 
-    interface Video {
-        id: string
-        title: string
-        url: string
-        thumbnail: string
-        watch_count: number
-        likes_count: number
-    }
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col max-h-dvh p-0">
             <div className="sticky top-0 bg-background z-10 p-4 border-b">
                 <CardTitle className="text-2xl font-bold">List of Videos</CardTitle>
             </div>
@@ -55,9 +52,12 @@ export default function VideoList() {
                                 src={video.url}
                                 className="w-full h-full object-cover"
                             />
-                            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                                <Button variant="ghost" size="icon" className="text-white" aria-label="Play video">
-                                    <Play className="h-12 w-12" />
+                            <div
+                                className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                                <Button onClick={() => {
+                                    handleVideoPlaying(video)
+                                }} variant="ghost" size="icon" className="text-white" aria-label="Play video">
+                                    <Play className="h-12 w-12"/>
                                 </Button>
                             </div>
                         </div>
@@ -66,7 +66,7 @@ export default function VideoList() {
                             <p className="text-sm text-muted-foreground line-clamp-2">{video.description}</p>
                             <div className="flex items-center justify-between text-sm text-muted-foreground">
                                 <div className="flex items-center">
-                                    <Eye className="h-4 w-4 mr-1" />
+                                    <Eye className="h-4 w-4 mr-1"/>
                                     <span>{video.watch_count.toLocaleString()}</span>
                                 </div>
                                 <Button
@@ -75,7 +75,7 @@ export default function VideoList() {
                                     onClick={() => handleButtonLikesClick(video.id)}
                                     className="flex items-center"
                                 >
-                                    <ThumbsUp className="h-4 w-4 mr-1" />
+                                    <ThumbsUp className="h-4 w-4 mr-1"/>
                                     <span>{video.likes_count.toLocaleString()}</span>
                                 </Button>
                             </div>

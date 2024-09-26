@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Card, CardContent} from "@/components/ui/card"
 import VideoPlayer from './VideoPlayer'
 import VideoDetails from './VideoDetails'
@@ -8,30 +8,37 @@ import VideoDetails from './VideoDetails'
 interface VideoPlayerCardProps {
     video: {
         id: string
+        url: string
         title: string
         description: string
-        watchCount: number
-        likesCount: number
-        url: string
+        watch_count: number
+        likes_count: number
     }
 }
 
 export default function VideoPlayerCard({video}: VideoPlayerCardProps) {
-    const [likes, setLikes] = useState(video.likesCount)
+
+    const [currentVideo, setCurrentVideo] = useState({})
+
+    useEffect(() => {
+        if (video) {
+            setCurrentVideo(video)
+        }
+    }, [video])
+
+    if (!video) {
+        return <div>Loading...</div>
+    }
 
     return (
-        <Card className="w-full overflow-hidden">
+        <Card className="w-full">
             <CardContent className="p-0">
-                <div >
-                    <VideoPlayer videoUrlProp={"video.url"}/>
+                <div>
+                    <VideoPlayer video={currentVideo}/>
                 </div>
                 <div className="p-6">
                     <VideoDetails
-                        id={video.id}
-                        title={video.title}
-                        description={video.description}
-                        watchCount={video.watchCount}
-                        likesCount={likes}
+                        video={currentVideo}
                     />
                 </div>
             </CardContent>
