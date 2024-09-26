@@ -6,13 +6,16 @@ import React, {useState} from "react";
 
 import {trpc} from './client'
 
+const API_URL = process.env.NODE_ENV === 'production' ? 'https://video-player-nextjs-2o0itmoch-juans-projects-4fab09ef.vercel.app' : 'http://localhost:3000';
+
+
 export default function Provider({children}: { children: React.ReactNode }) {
     const [queryClient] = useState(() => new QueryClient({}))
     const [trpcClient] = useState(() =>
         trpc.createClient({
             links: [
                 httpBatchLink({
-                    url: "http://localhost:3000/api/trpc"
+                    url: `${API_URL}/api/trpc`,
                 })
             ]
         }))
