@@ -1,16 +1,15 @@
 'use client'
 
-import {trpc} from '../_trcp/client'
-import {useEffect, useState} from 'react'
+import { trpc } from '../_trcp/client'
+import { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Play, Eye, ThumbsUp } from "lucide-react"
-
+import { CardTitle } from "@/components/ui/card"
 
 export default function VideoList() {
-    const {data} = trpc.getVideos.useQuery()
+    const { data } = trpc.getVideos.useQuery()
     const [videos, setVideos] = useState<any[]>([])
     const incrementLikesMutation = trpc.incrementLikes.useMutation()
-
 
     useEffect(() => {
         if (data && data.data) {
@@ -40,21 +39,19 @@ export default function VideoList() {
         likes_count: number
     }
 
-    interface VideoListProps {
-        videos: Video[]
-        handleButtonLikesClick: (id: string) => void
-    }
-
     return (
-        <div className="container mx-auto p-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="flex flex-col h-full">
+            <div className="sticky top-0 bg-background z-10 p-4 border-b">
+                <CardTitle className="text-2xl font-bold">List of Videos</CardTitle>
+            </div>
+            <div className="flex-grow overflow-y-auto space-y-4 p-4">
                 {videos.map((video) => (
                     <div
                         key={video.id}
-                        className="bg-card text-card-foreground rounded-lg overflow-hidden shadow-md transition-transform hover:scale-105"
+                        className="bg-card text-card-foreground rounded-lg shadow-md transition-transform hover:scale-105 flex flex-col lg:h-[400px]"
                     >
-                        <div className="relative aspect-video">
-                            <video width={300} height={200}
+                        <div className="relative flex-grow">
+                            <video
                                 src={video.url}
                                 className="w-full h-full object-cover"
                             />
@@ -64,8 +61,9 @@ export default function VideoList() {
                                 </Button>
                             </div>
                         </div>
-                        <div className="p-4">
+                        <div className="p-4 flex flex-col justify-between h-[120px] lg:h-[140px]">
                             <h3 className="font-semibold text-lg mb-2 line-clamp-2">{video.title}</h3>
+                            <p className="text-sm text-muted-foreground line-clamp-2">{video.description}</p>
                             <div className="flex items-center justify-between text-sm text-muted-foreground">
                                 <div className="flex items-center">
                                     <Eye className="h-4 w-4 mr-1" />
