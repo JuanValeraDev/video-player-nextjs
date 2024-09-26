@@ -11,7 +11,6 @@ export default function VideoDetails({video}: VideoProps) {
     if (!video) {
         return <div>Loading...</div>
     }
-    const [likes, setLikes] = useState(0)
     const incrementLikesMutation = trpc.incrementLikes.useMutation()
     const [currentVideoDetails, setCurrentVideoDetails] = useState({
         id: "",
@@ -26,7 +25,10 @@ export default function VideoDetails({video}: VideoProps) {
     const handleLikeClick = () => {
         incrementLikesMutation.mutate({videoId: currentVideoDetails.id}, {
             onSuccess: () => {
-                setLikes(prevLikes => prevLikes + 1)
+                setCurrentVideoDetails(prevDetails => ({
+                    ...prevDetails,
+                    likes_count: prevDetails.likes_count + 1
+                }))
             },
             onError: (error) => {
                 console.error("Error incrementing likes:", error)
@@ -38,6 +40,8 @@ export default function VideoDetails({video}: VideoProps) {
         setCurrentVideoDetails(video)
     }, [video]);
 
+
+
     return (
         <div className="space-y-4">
             <h1 className="text-2xl font-bold mb-4">{currentVideoDetails.title}</h1>
@@ -45,11 +49,11 @@ export default function VideoDetails({video}: VideoProps) {
                 <div className="flex items-center space-x-4">
                     <div className="flex items-center">
                         <Eye className="h-5 w-5 mr-2 text-muted-foreground"/>
-                        <span className="text-muted-foreground">{currentVideoDetails.watch_count} views</span>
+                        <span className="text-muted-foreground">{currentVideoDetails.watch_count.toLocaleString()} views</span>
                     </div>
                     <div className="flex items-center">
                         <ThumbsUp className="h-5 w-5 mr-2 text-muted-foreground"/>
-                        <span className="text-muted-foreground">{currentVideoDetails.likes_count} likes</span>
+                        <span className="text-muted-foreground">{currentVideoDetails.likes_count.toLocaleString()} likes</span>
                     </div>
                 </div>
                 <Button
