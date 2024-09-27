@@ -15,10 +15,10 @@ export default function VideoAppLayout() {
                 <h1 className="text-2xl font-bold ms-10">Video Player</h1>
             </header>
 
-            <div className="flex-grow overflow-hidden flex">
+            <div className="flex-grow overflow-hidden flex min-h-screen">
                 <div className="h-full container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-4 h-full sm:mx-8 lg:mx-2 justify-around">
-                        <div className="w-full lg:w-3/4 overflow-y-auto lg:my-20 mt-10 l:mt-4 max-w-2xl">
+                        <div className="w-full lg:w-3/4  lg:my-20 mt-10 l:mt-4 max-w-2xl">
                             <Suspense fallback={<Loading />}>
                                 <VideoPlayerCard
                                     video={videoPlaying ? videoPlaying : undefined}
