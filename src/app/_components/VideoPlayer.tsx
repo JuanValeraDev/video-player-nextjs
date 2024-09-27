@@ -56,24 +56,6 @@ export default function VideoPlayer({video, resetPlayer}: VideoProps) {
     }, [url])
 
     useEffect(() => {
-        if (resetPlayer) {
-            setIsPlaying(false)
-            setIsFirstPlaying(true)
-            setProgress(0)
-            setVolume(1)
-            setIsMuted(false)
-            setDuration(0)
-            setCurrentTime(0)
-            setPlaybackRate(1)
-            setIsFullscreen(false)
-            if (videoRef.current) {
-                videoRef.current.pause()
-                videoRef.current.currentTime = 0
-            }
-        }
-    }, [resetPlayer])
-
-    useEffect(() => {
         const playVideo = async () => {
             if (isFirstPlaying && videoRef.current) {
                 try {
@@ -86,6 +68,21 @@ export default function VideoPlayer({video, resetPlayer}: VideoProps) {
             }
         }
 
+        if (resetPlayer) {
+            if (videoRef.current) {
+                videoRef.current.pause()
+                videoRef.current.currentTime = 0
+            }
+            setIsPlaying(false)
+            setIsFirstPlaying(true)
+            setProgress(0)
+            setVolume(1)
+            setIsMuted(false)
+            setDuration(0)
+            setCurrentTime(0)
+            setPlaybackRate(1)
+            setIsFullscreen(false)
+        }
         playVideo()
     }, [resetPlayer, videoUrl])
 
