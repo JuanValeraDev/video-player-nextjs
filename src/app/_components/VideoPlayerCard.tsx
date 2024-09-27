@@ -4,29 +4,12 @@ import React, {useEffect, useState} from 'react'
 import {Card, CardContent} from "@/components/ui/card"
 import VideoPlayer from './VideoPlayer'
 import VideoDetails from './VideoDetails'
+import{VideoProps} from "@/types/Video";
 
-interface VideoPlayerCardProps {
-    video: {
-        id: string
-        url: string
-        title: string
-        description: string
-        watch_count: number
-        likes_count: number
-    },
-    resetPlayer: boolean
-}
 
-export default function VideoPlayerCard({video, resetPlayer}: VideoPlayerCardProps) {
+export default function VideoPlayerCard({video, resetPlayer, onIncrementLikes}: VideoProps) {
 
-    const [currentVideo, setCurrentVideo] = useState({
-        id: "",
-        url: "",
-        title: "",
-        description: "",
-        watch_count: 0,
-        likes_count: 0,
-    })
+    const [currentVideo, setCurrentVideo] = useState(video)
 
     useEffect(() => {
         if (video) {
@@ -34,7 +17,7 @@ export default function VideoPlayerCard({video, resetPlayer}: VideoPlayerCardPro
         }
     }, [video])
 
-    if (!video) {
+    if (!currentVideo) {
         return <div>Loading...</div>
     }
 
@@ -47,6 +30,7 @@ export default function VideoPlayerCard({video, resetPlayer}: VideoPlayerCardPro
                 <div className="p-6">
                     <VideoDetails
                         video={currentVideo}
+                        onIncrementLikes={onIncrementLikes}
                     />
                 </div>
             </CardContent>

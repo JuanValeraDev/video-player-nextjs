@@ -1,40 +1,12 @@
 'use client'
 
-import {trpc} from '../_trcp/client'
-import {useEffect, useState} from 'react'
 import {Button} from "@/components/ui/button"
 import {Play, Eye, ThumbsUp} from "lucide-react"
 import {CardTitle} from "@/components/ui/card"
-import {Video} from "@/types/Video";
+import {VideoProps} from "@/types/Video";
 
-interface VideoListProps {
-    handleVideoPlaying: (video: Video) => void;
-}
 
-export default ({handleVideoPlaying}: VideoListProps) => {
-
-    const {data} = trpc.getVideos.useQuery()
-    const [videos, setVideos] = useState<any[]>([])
-    const incrementLikesMutation = trpc.incrementLikes.useMutation()
-
-    useEffect(() => {
-        if (data && data.data) {
-            setVideos(data.data)
-        }
-    }, [data])
-
-    const handleButtonLikesClick = (id: string) => {
-        incrementLikesMutation.mutate({videoId: id}, {
-            onSuccess: () => {
-                setVideos(videos.map(video =>
-                    video.id === id ? {...video, likes_count: video.likes_count + 1} : video
-                ))
-            },
-            onError: (error) => {
-                console.error("Error incrementing likes:", error)
-            }
-        })
-    }
+export default ({videos, onChangeVideoPlaying, onIncrementLikes}: VideoProps) => {
 
 
     return (
@@ -43,7 +15,7 @@ export default ({handleVideoPlaying}: VideoListProps) => {
                 <CardTitle className="text-2xl font-bold">List of Videos</CardTitle>
             </div>
             <div className="flex-grow overflow-y-auto space-y-4 p-4">
-                {videos.map((video) => (
+                {videos && videos.map((video) => (
                     <div
                         key={video.id}
                         className="bg-card text-card-foreground rounded-lg shadow-md transition-transform hover:scale-105 flex flex-col lg:h-[400px]"
@@ -56,7 +28,9 @@ export default ({handleVideoPlaying}: VideoListProps) => {
                             <div
                                 className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
                                 <Button onClick={() => {
-                                    handleVideoPlaying(video)
+                                    if (onChangeVideoPlaying) {
+                                        onChangeVideoPlaying(video)
+                                    }
                                 }} variant="ghost" size="icon" className="text-white" aria-label="Play video">
                                     <Play className="h-12 w-12"/>
                                 </Button>
@@ -73,7 +47,11 @@ export default ({handleVideoPlaying}: VideoListProps) => {
                                 <Button
                                     variant="ghost"
                                     size="sm"
-                                    onClick={() => handleButtonLikesClick(video.id)}
+                                    onClick={() => {
+                                        if (onIncrementLikes) {
+                                            onIncrementLikes(video.id)
+                                        }
+                                    }}
                                     className="flex items-center"
                                 >
                                     <ThumbsUp className="h-4 w-4 mr-1"/>

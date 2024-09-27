@@ -5,24 +5,49 @@ import VideoList from './VideoList'
 import VideoPlayerCard from "@/app/_components/VideoPlayerCard"
 import {Loading} from "@/app/_components/Loading";
 import {Video} from "@/types/Video";
+import {trpc} from '../_trcp/client'
 
 export default function VideoAppLayout() {
 
-    const [videoPlaying, setVideoPlaying] = useState({
-        id: "",
-        url: "",
-        title: "",
-        description: "",
-        watch_count: 0,
-        likes_count: 0,
-    })
+    const [videoPlaying, setVideoPlaying] = useState<Video | null>(null)
     const [resetPlayer, setResetPlayer] = useState(false)
 
 
+    const {data} = trpc.getVideos.useQuery()
+    const incrementLikesMutation = trpc.incrementLikes.useMutation()
 
-    const handleVideoPlaying = (video: Video) => {
+    const [videos, setVideos] = useState<any[]>([])
+
+    useEffect(() => {
+        if (data && data.data) {
+            setVideos(data.data)
+        }
+    }, [data])
+
+    const handleVideoToPlay = (video: Video) => {
         setVideoPlaying(video)
         setResetPlayer(true)
+    }
+
+    const handleIncrementLikes = (id: string) => {
+        incrementLikesMutation.mutate({videoId: id}, {
+            onSuccess: () => {
+                setVideos(prevVideos =>
+                    prevVideos.map(video =>
+                        video.id === id ? {...video, likes_count: video.likes_count + 1} : video
+                    )
+                )
+                if (videoPlaying && videoPlaying.id === id) {
+                    setVideoPlaying(prevVideo => prevVideo ? {
+                        ...prevVideo,
+                        likes_count: prevVideo.likes_count + 1
+                    } : null)
+                }
+            },
+            onError: (error) => {
+                console.error("Error incrementing likes:", error)
+            }
+        })
     }
     useEffect(() => {
         if (resetPlayer) {
@@ -42,14 +67,17 @@ export default function VideoAppLayout() {
                         <div className="w-full lg:w-3/4 overflow-y-auto lg:my-20 mt-10  l:mt-4">
                             <Suspense fallback={<Loading/>}>
                                 <VideoPlayerCard
-                                    video={videoPlaying}
+                                    video={videoPlaying ? videoPlaying : undefined}
                                     resetPlayer={resetPlayer}
+                                    onIncrementLikes={handleIncrementLikes}
                                 />
                             </Suspense>
                         </div>
                         <div className="w-full lg:w-1/4 overflow-y-auto">
                             <Suspense fallback={<Loading/>}>
-                                <VideoList handleVideoPlaying={handleVideoPlaying}/>
+                                <VideoList videos={videos}
+                                           onChangeVideoPlaying={handleVideoToPlay}
+                                           onIncrementLikes={handleIncrementLikes}/>
                             </Suspense>
                         </div>
                     </div>
