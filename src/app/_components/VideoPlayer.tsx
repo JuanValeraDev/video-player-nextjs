@@ -15,7 +15,7 @@ export default function VideoPlayer({video, resetPlayer}: VideoTypeProps & {
 }) {
 
     const [isPlaying, setIsPlaying] = useState(false)
-    const [isFirstPlaying, setIsFirstPlaying] = useState(true)
+    const [isFirstTimePlayingThisVideo, setIsFirstTimePlayingThisVideo] = useState(true)
     const [progress, setProgress] = useState(0)
     const [volume, setVolume] = useState(1)
     const [isMuted, setIsMuted] = useState(false)
@@ -23,11 +23,6 @@ export default function VideoPlayer({video, resetPlayer}: VideoTypeProps & {
     const [currentTime, setCurrentTime] = useState(0)
     const [playbackRate, setPlaybackRate] = useState(1)
     const [isFullscreen, setIsFullscreen] = useState(false)
-
-    const {url} = video
-
-    const [videoUrl, setVideoUrl] = useState(url)
-
     const videoRef = useRef<HTMLVideoElement>(null)
     const playerRef = useRef<HTMLDivElement>(null)
 
@@ -51,16 +46,12 @@ export default function VideoPlayer({video, resetPlayer}: VideoTypeProps & {
     }, [])
 
     useEffect(() => {
-        setVideoUrl(url)
-    }, [url])
-
-    useEffect(() => {
         const playVideo = async () => {
-            if (isFirstPlaying && videoRef.current) {
+            if (isFirstTimePlayingThisVideo && videoRef.current) {
                 try {
                     await videoRef.current.play()
                     setIsPlaying(true)
-                    setIsFirstPlaying(false)
+                    setIsFirstTimePlayingThisVideo(false)
                 } catch (error) {
                     console.error("Error playing video:", error)
                 }
@@ -73,7 +64,7 @@ export default function VideoPlayer({video, resetPlayer}: VideoTypeProps & {
                 videoRef.current.currentTime = 0
             }
             setIsPlaying(false)
-            setIsFirstPlaying(true)
+            setIsFirstTimePlayingThisVideo(true)
             setProgress(0)
             setVolume(1)
             setIsMuted(false)
@@ -83,7 +74,7 @@ export default function VideoPlayer({video, resetPlayer}: VideoTypeProps & {
             setIsFullscreen(false)
         }
         playVideo()
-    }, [resetPlayer, videoUrl])
+    }, [resetPlayer, video.url])
 
     const togglePlay = async () => {
         if (videoRef.current) {
@@ -163,11 +154,12 @@ export default function VideoPlayer({video, resetPlayer}: VideoTypeProps & {
 
     return (
         <div ref={playerRef}
-             className="relative w-full h-full mx-auto bg-gray-900 rounded-lg shadow-xl">
+             className="relative w-full h-full mx-auto bg-gray-900 rounded-lg shadow-xl hover:cursor-pointer"
+             onClick={togglePlay}>
             <video
                 ref={videoRef}
                 className="w-full h-auto object-contain rounded-t"
-                src={videoUrl}
+                src={video.url}
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
                 <Slider

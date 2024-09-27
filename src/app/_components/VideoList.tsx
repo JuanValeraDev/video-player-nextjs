@@ -29,10 +29,8 @@ export default ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementWatc
                         flex-grow hover:cursor-pointer
                         "
                         onClick={() => {
-                            if (onChangeVideoPlaying && onIncrementWatches) {
-                                onChangeVideoPlaying(video)
-                                onIncrementWatches(video.id)
-                            }
+                            onChangeVideoPlaying(video)
+                            onIncrementWatches(video.id)
                         }}
                     >
                         <div className="relative flex-grow">
@@ -58,10 +56,10 @@ export default ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementWatc
                                 <Button
                                     variant="ghost"
                                     size="sm"
-                                    onClick={() => {
-                                        if (onIncrementLikes) {
-                                            onIncrementLikes(video.id)
-                                        }
+                                    onClick={(event) => {
+                                        event.preventDefault()
+                                        event.stopPropagation()
+                                        onIncrementLikes(video.id)
                                     }}
                                     className="flex items-center"
                                 >

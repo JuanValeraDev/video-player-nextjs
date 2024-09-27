@@ -8,12 +8,11 @@ import { useVideoData } from '@/hooks/useVideoData'
 
 
 /*TODO
-    - Poner operador ternario si no hay vídeo para que se muestre el reprouctor vacío
-    - Al hacer click sobre la pantalla del reproductor se pause o replay el vídeo
+    - Controlar que al hacer click en la barra de progreso o en skipPrevious y skipBack no cambie el togglePlay
+    - Mostrar la duración del vídeo en VideoList
+    - Cuando la barra de progreso de un vídeo llega al final el vídeo el botón del play debe quedar en pausa
     - Volver a poner el ESLint
     - Implementar skeletons Loading
-    - Dejar solo la interfaz Vídeo y el resto de props ponerlas directamente en la signatura de los componentes
-    - Hacer el prevent del evento en el botón de like de VideoList para que no se propague hacia abajo y se reproduzca ese vídeo
     - Buscar la forma de que se reproduzca el vídeo al hacer hover sobre él (que se propague el evento hacia abajo y no se quede en la card)
     - Hacer Readme documentando tod0 correctamente (como hacer el setup, cómo ejecutar la app y cómo testear las llamadas a la API)
     - Implementar testing
@@ -44,7 +43,6 @@ export default function VideoAppLayout() {
                                     video={videoPlaying}
                                     resetPlayer={resetPlayer}
                                     onIncrementLikes={handleIncrementLikes}
-                                    onIncrementWatches={handleIncrementWatches}
                                 />
                             </Suspense>
                         </div>
