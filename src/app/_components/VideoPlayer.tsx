@@ -1,16 +1,18 @@
 "use client"
 
-import React, {useState, useRef, useEffect} from 'react'
+import {useState, useRef, useEffect} from 'react'
 import {Slider} from "@/components/ui/slider"
 import {Button} from "@/components/ui/button"
 import {
     Play, Pause, SkipBack, SkipForward, Volume2, VolumeX,
     Maximize, Minimize, Settings
 } from 'lucide-react'
-import {VideoProps} from "@/types/Video";
+import {VideoTypeProps} from "@/types/VideoType";
 
 
-export default function VideoPlayer({video, resetPlayer}: VideoProps) {
+export default function VideoPlayer({video, resetPlayer}: VideoTypeProps & {
+    resetPlayer: boolean
+}) {
 
     const [isPlaying, setIsPlaying] = useState(false)
     const [isFirstPlaying, setIsFirstPlaying] = useState(true)
@@ -22,7 +24,7 @@ export default function VideoPlayer({video, resetPlayer}: VideoProps) {
     const [playbackRate, setPlaybackRate] = useState(1)
     const [isFullscreen, setIsFullscreen] = useState(false)
 
-    let url = video ? video.url : ""
+    const {url} = video
 
     const [videoUrl, setVideoUrl] = useState(url)
 

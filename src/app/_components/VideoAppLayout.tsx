@@ -9,6 +9,8 @@ import { useVideoData } from '@/hooks/useVideoData'
 
 /*TODO
     - Poner operador ternario si no hay vídeo para que se muestre el reprouctor vacío
+    - Al hacer click sobre la pantalla del reproductor se pause o replay el vídeo
+    - Volver a poner el ESLint
     - Implementar skeletons Loading
     - Dejar solo la interfaz Vídeo y el resto de props ponerlas directamente en la signatura de los componentes
     - Hacer el prevent del evento en el botón de like de VideoList para que no se propague hacia abajo y se reproduzca ese vídeo
@@ -20,6 +22,7 @@ import { useVideoData } from '@/hooks/useVideoData'
     - (Opcional) Crear filtro
     - (Opcional) Crear sección de comentarios -> Nueva tabla en base de datos y nuevo router de tRCP
     - (Opcional) Volver a Next15
+    - Limipar código en general
 
  */
 
@@ -38,7 +41,7 @@ export default function VideoAppLayout() {
                         <div className="w-full lg:w-3/4  lg:my-20 mt-10 l:mt-4 max-w-2xl">
                             <Suspense fallback={<Loading />}>
                                 <VideoPlayerCard
-                                    video={videoPlaying ? videoPlaying : undefined}
+                                    video={videoPlaying}
                                     resetPlayer={resetPlayer}
                                     onIncrementLikes={handleIncrementLikes}
                                     onIncrementWatches={handleIncrementWatches}

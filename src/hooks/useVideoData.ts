@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import {Video} from '@/types/Video'
+import {VideoType} from '@/types/VideoType'
 import {trpc} from '@/app/_trcp/client'
 
 export const useVideoData = () => {
@@ -7,8 +7,15 @@ export const useVideoData = () => {
     const incrementLikesMutation = trpc.incrementLikes.useMutation()
     const incrementWatchesMutation = trpc.incrementWatches.useMutation()
 
-    const [videos, setVideos] = useState<Video[]>([])
-    const [videoPlaying, setVideoPlaying] = useState<Video | null>(null)
+    const [videos, setVideos] = useState<VideoType[]>([])
+    const [videoPlaying, setVideoPlaying] = useState<VideoType>({
+        id: "",
+        url: "",
+        title: "",
+        description: "",
+        watch_count: 0,
+        likes_count: 0
+    })
     const [resetPlayer, setResetPlayer] = useState(false)
 
 
@@ -24,7 +31,7 @@ export const useVideoData = () => {
         }
     }, [resetPlayer])
 
-    const handleVideoToPlay = (video: Video) => {
+    const handleVideoToPlay = (video: VideoType) => {
         setVideoPlaying(video)
         setResetPlayer(true)
     }
@@ -37,11 +44,11 @@ export const useVideoData = () => {
                         video.id === id ? {...video, likes_count: video.likes_count + 1} : video
                     )
                 )
-                if (videoPlaying && videoPlaying.id === id) {
-                    setVideoPlaying(prevVideo => prevVideo ? {
+                if (videoPlaying.id === id) {
+                    setVideoPlaying(prevVideo => ({
                         ...prevVideo,
                         likes_count: prevVideo.likes_count + 1
-                    } : null)
+                    }))
                 }
             },
             onError: (error) => {

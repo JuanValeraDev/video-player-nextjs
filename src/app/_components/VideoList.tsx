@@ -3,10 +3,15 @@
 import {Button} from "@/components/ui/button"
 import {Play, Eye, ThumbsUp} from "lucide-react"
 import {CardTitle} from "@/components/ui/card"
-import {VideoProps} from "@/types/Video";
+import {VideoType} from "@/types/VideoType";
 
 
-export default ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementWatches}: VideoProps) => {
+export default ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementWatches}: {
+    videos: VideoType[]
+    onChangeVideoPlaying: (video: VideoType) => void,
+    onIncrementLikes: (id: string) => void,
+    onIncrementWatches: (id: string) => void
+}) => {
 
 
     return (

@@ -2,13 +2,12 @@
 
 import {Button} from "@/components/ui/button"
 import {ThumbsUp, Eye} from "lucide-react"
-import {VideoProps} from '@/types/Video'
+import {VideoTypeProps} from '@/types/VideoType'
 
 
-export default function VideoDetails({video, onIncrementLikes}: VideoProps) {
-    if (!video) {
-        return <div>Loading...</div>
-    }
+export default ({video, onIncrementLikes}: VideoTypeProps & {
+    onIncrementLikes: (id: string) => void;
+}) => {
 
     return (
         <div className="space-y-4">
@@ -29,11 +28,7 @@ export default function VideoDetails({video, onIncrementLikes}: VideoProps) {
                 <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => {
-                        if (onIncrementLikes) {
-                            onIncrementLikes(video.id)
-                        }
-                    }}
+                    onClick={() => onIncrementLikes(video.id)}
                     className="flex items-center"
                     aria-label="Like this video"
                 >
