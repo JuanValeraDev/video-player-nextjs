@@ -167,7 +167,7 @@ export default function VideoPlayer({video, resetPlayer}: VideoProps) {
              className="relative w-full h-full mx-auto bg-gray-900 rounded-lg shadow-xl">
             <video
                 ref={videoRef}
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain rounded-t"
                 src={videoUrl}
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
