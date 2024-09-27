@@ -6,6 +6,23 @@ import VideoPlayerCard from "@/app/_components/VideoPlayerCard"
 import { Loading } from "@/app/_components/Loading"
 import { useVideoData } from '@/hooks/useVideoData'
 
+
+/*TODO
+    - Poner operador ternario si no hay vídeo para que se muestre el reprouctor vacío
+    - Implementar skeletons Loading
+    - Dejar solo la interfaz Vídeo y el resto de props ponerlas directamente en la signatura de los componentes
+    - Hacer el prevent del evento en el botón de like de VideoList para que no se propague hacia abajo y se reproduzca ese vídeo
+    - Buscar la forma de que se reproduzca el vídeo al hacer hover sobre él (que se propague el evento hacia abajo y no se quede en la card)
+    - Hacer Readme documentando tod0 correctamente (como hacer el setup, cómo ejecutar la app y cómo testear las llamadas a la API)
+    - Implementar testing
+    - Subir vídeos mucho más largos y chulos al S3
+    - (Opcional) Poder editar la el título y descripción del vídeo
+    - (Opcional) Crear filtro
+    - (Opcional) Crear sección de comentarios -> Nueva tabla en base de datos y nuevo router de tRCP
+    - (Opcional) Volver a Next15
+
+ */
+
 export default function VideoAppLayout() {
     const { videos, videoPlaying, resetPlayer, handleVideoToPlay, handleIncrementLikes, handleIncrementWatches } = useVideoData()
 

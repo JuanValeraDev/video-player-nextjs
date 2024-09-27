@@ -21,11 +21,8 @@ export default function VideoPlayer({video, resetPlayer}: VideoProps) {
     const [currentTime, setCurrentTime] = useState(0)
     const [playbackRate, setPlaybackRate] = useState(1)
     const [isFullscreen, setIsFullscreen] = useState(false)
-    let url = ""
 
-    if (video) {
-        url = video.url
-    }
+    let url = video ? video.url : ""
 
     const [videoUrl, setVideoUrl] = useState(url)
 
