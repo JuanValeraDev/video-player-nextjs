@@ -1,5 +1,5 @@
 
-import VideoAppLayout from "@/app/_components/VideoAppLayout";
+import VideoAppLayout from "@/components/VideoAppLayout";
 
 export default function Home() {
     return <VideoAppLayout/>

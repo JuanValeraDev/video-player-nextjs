@@ -4,17 +4,19 @@ import {Button} from "@/components/ui/button"
 import {Play, Eye, ThumbsUp} from "lucide-react"
 import {CardTitle} from "@/components/ui/card"
 import {VideoType} from "@/types/VideoType";
+import VideoListSkeleton from "@/loading/VideoListSkeleton";
 
 
-export default ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementWatches}: {
+const VideoList = ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementWatches}: {
     videos: VideoType[]
     onChangeVideoPlaying: (video: VideoType) => void,
     onIncrementLikes: (id: string) => void,
     onIncrementWatches: (id: string) => void
 }) => {
-
-
-    return (
+    const isLoading = !videos || videos.length === 0;
+    return isLoading ? (
+        <VideoListSkeleton />
+    ) : (
         <div className="flex flex-col max-h-dvh p-0">
             <div className="sticky top-0 bg-background z-10 p-4 ">
                 <CardTitle className="text-2xl font-bold">List of Videos</CardTitle>
@@ -74,3 +76,6 @@ export default ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementWatc
         </div>
     )
 }
+
+VideoList.displayName = 'VideoList'
+export default VideoList

@@ -1,17 +1,16 @@
 "use client"
 
-import React, { Suspense } from 'react'
+import React, {Suspense} from 'react'
 import VideoList from './VideoList'
-import VideoPlayerCard from "@/app/_components/VideoPlayerCard"
-import { Loading } from "@/app/_components/Loading"
-import { useVideoData } from '@/hooks/useVideoData'
+import VideoPlayerCard from "@/components/VideoPlayerCard"
+import {Loading} from "@/components/Loading"
+import {useVideoData} from '@/hooks/useVideoData'
 
 
 /*TODO
     - Controlar que al hacer click en la barra de progreso o en skipPrevious y skipBack no cambie el togglePlay
     - Mostrar la duración del vídeo en VideoList
     - Cuando la barra de progreso de un vídeo llega al final el vídeo el botón del play debe quedar en pausa
-    - Volver a poner el ESLint
     - Implementar skeletons Loading
     - Buscar la forma de que se reproduzca el vídeo al hacer hover sobre él (que se propague el evento hacia abajo y no se quede en la card)
     - Hacer Readme documentando tod0 correctamente (como hacer el setup, cómo ejecutar la app y cómo testear las llamadas a la API)
@@ -25,8 +24,15 @@ import { useVideoData } from '@/hooks/useVideoData'
 
  */
 
-export default function VideoAppLayout() {
-    const { videos, videoPlaying, resetPlayer, handleVideoToPlay, handleIncrementLikes, handleIncrementWatches } = useVideoData()
+const VideoAppLayout = () => {
+    const {
+        videos,
+        videoPlaying,
+        resetPlayer,
+        handleVideoToPlay,
+        handleIncrementLikes,
+        handleIncrementWatches
+    } = useVideoData()
 
     return (
         <div className="flex flex-col p-0">
@@ -38,7 +44,7 @@ export default function VideoAppLayout() {
                 <div className="h-full container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-4 h-full sm:mx-8 lg:mx-2 justify-around">
                         <div className="w-full lg:w-3/4  lg:my-20 mt-10 l:mt-4 max-w-2xl">
-                            <Suspense fallback={<Loading />}>
+                            <Suspense fallback={<Loading/>}>
                                 <VideoPlayerCard
                                     video={videoPlaying}
                                     resetPlayer={resetPlayer}
@@ -48,7 +54,7 @@ export default function VideoAppLayout() {
                         </div>
 
                         <div className="w-full lg:w-1/4 overflow-y-auto lg:ml-0">
-                            <Suspense fallback={<Loading />}>
+                            <Suspense fallback={<Loading/>}>
                                 <VideoList
                                     videos={videos}
                                     onChangeVideoPlaying={handleVideoToPlay}
@@ -66,3 +72,6 @@ export default function VideoAppLayout() {
         </div>
     )
 }
+
+VideoAppLayout.displayName = 'VideoAppLayout'
+export default VideoAppLayout

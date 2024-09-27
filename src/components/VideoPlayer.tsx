@@ -10,9 +10,9 @@ import {
 import {VideoTypeProps} from "@/types/VideoType";
 
 
-export default function VideoPlayer({video, resetPlayer}: VideoTypeProps & {
+const VideoPlayer = ({video, resetPlayer}: VideoTypeProps & {
     resetPlayer: boolean
-}) {
+}) => {
 
     const [isPlaying, setIsPlaying] = useState(false)
     const [isFirstTimePlayingThisVideo, setIsFirstTimePlayingThisVideo] = useState(true)
@@ -74,7 +74,7 @@ export default function VideoPlayer({video, resetPlayer}: VideoTypeProps & {
             setIsFullscreen(false)
         }
         playVideo()
-    }, [resetPlayer, video.url])
+    }, [resetPlayer, video.url, isFirstTimePlayingThisVideo])
 
     const togglePlay = async () => {
         if (videoRef.current) {
@@ -219,3 +219,6 @@ export default function VideoPlayer({video, resetPlayer}: VideoTypeProps & {
         </div>
     )
 }
+
+VideoPlayer.displayName = 'VideoPlayer'
+export default VideoPlayer

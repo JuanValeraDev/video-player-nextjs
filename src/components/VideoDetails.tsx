@@ -5,10 +5,9 @@ import {ThumbsUp, Eye} from "lucide-react"
 import {VideoTypeProps} from '@/types/VideoType'
 
 
-export default ({video, onIncrementLikes}: VideoTypeProps & {
+const VideoDetails= ({video, onIncrementLikes}: VideoTypeProps & {
     onIncrementLikes: (id: string) => void;
 }) => {
-
     return (
         <div className="space-y-4">
             <h1 className="text-2xl font-bold mb-4">{video.title}</h1>
@@ -40,3 +39,7 @@ export default ({video, onIncrementLikes}: VideoTypeProps & {
         </div>
     )
 }
+
+VideoDetails.displayName = "VideoDetails";
+
+export default VideoDetails;
