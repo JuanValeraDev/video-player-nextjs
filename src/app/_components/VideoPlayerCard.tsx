@@ -7,7 +7,7 @@ import VideoDetails from './VideoDetails'
 import{VideoProps} from "@/types/Video";
 
 
-export default function VideoPlayerCard({video, resetPlayer, onIncrementLikes}: VideoProps) {
+export default function VideoPlayerCard({video, resetPlayer, onIncrementLikes, onIncrementWatches}: VideoProps) {
 
     const [currentVideo, setCurrentVideo] = useState(video)
 
@@ -31,6 +31,7 @@ export default function VideoPlayerCard({video, resetPlayer, onIncrementLikes}: 
                     <VideoDetails
                         video={currentVideo}
                         onIncrementLikes={onIncrementLikes}
+                        onIncrementWatches={onIncrementWatches}
                     />
                 </div>
             </CardContent>

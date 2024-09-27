@@ -6,7 +6,7 @@ import {CardTitle} from "@/components/ui/card"
 import {VideoProps} from "@/types/Video";
 
 
-export default ({videos, onChangeVideoPlaying, onIncrementLikes}: VideoProps) => {
+export default ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementWatches}: VideoProps) => {
 
 
     return (
@@ -28,8 +28,9 @@ export default ({videos, onChangeVideoPlaying, onIncrementLikes}: VideoProps) =>
                             <div
                                 className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
                                 <Button onClick={() => {
-                                    if (onChangeVideoPlaying) {
+                                    if (onChangeVideoPlaying && onIncrementWatches) {
                                         onChangeVideoPlaying(video)
+                                        onIncrementWatches(video.id)
                                     }
                                 }} variant="ghost" size="icon" className="text-white" aria-label="Play video">
                                     <Play className="h-12 w-12"/>

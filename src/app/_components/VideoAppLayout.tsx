@@ -15,6 +15,7 @@ export default function VideoAppLayout() {
 
     const {data} = trpc.getVideos.useQuery()
     const incrementLikesMutation = trpc.incrementLikes.useMutation()
+    const incrementWatchesMutation = trpc.incrementWatches.useMutation()
 
     const [videos, setVideos] = useState<any[]>([])
 
@@ -49,6 +50,20 @@ export default function VideoAppLayout() {
             }
         })
     }
+    const handleIncrementWatches = (id: string) => {
+        incrementWatchesMutation.mutate({videoId: id}, {
+            onSuccess: () => {
+                setVideos(prevVideos =>
+                    prevVideos.map(video =>
+                        video.id === id ? {...video, watch_count: video.watch_count + 1} : video
+                    )
+                )
+            },
+            onError: (error) => {
+                console.error("Error incrementing likes:", error)
+            }
+        })
+    }
     useEffect(() => {
         if (resetPlayer) {
             setResetPlayer(false)
@@ -70,6 +85,7 @@ export default function VideoAppLayout() {
                                     video={videoPlaying ? videoPlaying : undefined}
                                     resetPlayer={resetPlayer}
                                     onIncrementLikes={handleIncrementLikes}
+                                    onIncrementWatches={handleIncrementWatches}
                                 />
                             </Suspense>
                         </div>
@@ -77,7 +93,8 @@ export default function VideoAppLayout() {
                             <Suspense fallback={<Loading/>}>
                                 <VideoList videos={videos}
                                            onChangeVideoPlaying={handleVideoToPlay}
-                                           onIncrementLikes={handleIncrementLikes}/>
+                                           onIncrementLikes={handleIncrementLikes}
+                                           onIncrementWatches={handleIncrementWatches}/>
                             </Suspense>
                         </div>
                     </div>

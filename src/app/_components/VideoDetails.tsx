@@ -3,13 +3,17 @@
 import {Button} from "@/components/ui/button"
 import {ThumbsUp, Eye} from "lucide-react"
 import {VideoProps} from '@/types/Video'
+import {useEffect} from "react";
 
 
-export default function VideoDetails({video, onIncrementLikes}: VideoProps) {
+export default function VideoDetails({video, onIncrementLikes, onIncrementWatches}: VideoProps) {
     if (!video) {
         return <div>Loading...</div>
     }
 
+    useEffect(() => {
+
+    }, [onIncrementWatches]);
     return (
         <div className="space-y-4">
             <h1 className="text-2xl font-bold mb-4">{video.title}</h1>
@@ -18,7 +22,7 @@ export default function VideoDetails({video, onIncrementLikes}: VideoProps) {
                     <div className="flex items-center">
                         <Eye className="h-5 w-5 mr-2 text-muted-foreground"/>
                         <span
-                            className="text-muted-foreground">{video.watch_count.toLocaleString()} views</span>
+                            className="text-muted-foreground">{(video.watch_count +1 ).toLocaleString()} views</span>
                     </div>
                     <div className="flex items-center">
                         <ThumbsUp className="h-5 w-5 mr-2 text-muted-foreground"/>

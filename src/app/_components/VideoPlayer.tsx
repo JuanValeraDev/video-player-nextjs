@@ -13,6 +13,7 @@ import {VideoProps} from "@/types/Video";
 export default function VideoPlayer({video, resetPlayer}: VideoProps) {
 
     const [isPlaying, setIsPlaying] = useState(false)
+    const [isFirstPlaying, setIsFirstPlaying] = useState(true)
     const [progress, setProgress] = useState(0)
     const [volume, setVolume] = useState(1)
     const [isMuted, setIsMuted] = useState(false)
@@ -57,6 +58,7 @@ export default function VideoPlayer({video, resetPlayer}: VideoProps) {
     useEffect(() => {
         if (resetPlayer) {
             setIsPlaying(false)
+            setIsFirstPlaying(true)
             setProgress(0)
             setVolume(1)
             setIsMuted(false)
@@ -71,12 +73,32 @@ export default function VideoPlayer({video, resetPlayer}: VideoProps) {
         }
     }, [resetPlayer])
 
-    const togglePlay = () => {
+    useEffect(() => {
+        const playVideo = async () => {
+            if (isFirstPlaying && videoRef.current) {
+                try {
+                    await videoRef.current.play()
+                    setIsPlaying(true)
+                    setIsFirstPlaying(false)
+                } catch (error) {
+                    console.error("Error playing video:", error)
+                }
+            }
+        }
+
+        playVideo()
+    }, [resetPlayer, videoUrl])
+
+    const togglePlay = async () => {
         if (videoRef.current) {
             if (isPlaying) {
                 videoRef.current.pause()
             } else {
-                videoRef.current.play()
+                try {
+                    await videoRef.current.play()
+                } catch (error) {
+                    console.error("Error playing video:", error)
+                }
             }
             setIsPlaying(!isPlaying)
         }

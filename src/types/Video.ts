@@ -11,6 +11,7 @@ export interface VideoProps {
     video?: Video,
     videos?: Video[],
     resetPlayer?: boolean,
+    onChangeVideoPlaying?: (video: Video) => void,
     onIncrementLikes?: (id: string) => void,
-    onChangeVideoPlaying?: (video: Video) => void
+    onIncrementWatches?: (id: string) => void,
 }

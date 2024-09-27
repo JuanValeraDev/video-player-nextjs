@@ -48,6 +48,16 @@ export async function incrementLikes(videoId: string) {
     if (error) {
         throw new Error(`Error incrementing likes: ${error.message}`)
     }
+    return data
+}
+export async function incrementWatches(videoId: string) {
+    const supabase = await createClient()
+    const {data, error} = await supabase
+        .rpc('increment_watches', {video_id: videoId})
+        .single()
 
+    if (error) {
+        throw new Error(`Error incrementing likes: ${error.message}`)
+    }
     return data
 }

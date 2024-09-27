@@ -1,7 +1,6 @@
-import {publicProcedure, router} from "@/server/trpc";
-import {getVideos, incrementLikes} from "@/app/lib/actions";
-import { z } from 'zod';
-
+import {publicProcedure, router} from "@/server/trpc"
+import {getVideos, incrementLikes, incrementWatches} from "@/app/lib/actions"
+import {z} from 'zod'
 
 
 export const appRouter = router({
@@ -9,12 +8,21 @@ export const appRouter = router({
         return getVideos()
     }),
     incrementLikes: publicProcedure
-        .input(z.object({ videoId: z.string() }))
-        .mutation(async ({ input }) => {
+        .input(z.object({videoId: z.string()}))
+        .mutation(async ({input}) => {
             if (input) {
-                return incrementLikes(input.videoId);
+                return incrementLikes(input.videoId)
             } else {
                 return false;
+            }
+        }),
+    incrementWatches: publicProcedure
+        .input(z.object({videoId: z.string()}))
+        .mutation(async ({input}) => {
+            if (input) {
+                return incrementWatches(input.videoId)
+            } else {
+                return false
             }
         })
 })
