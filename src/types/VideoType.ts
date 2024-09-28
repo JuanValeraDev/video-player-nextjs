@@ -5,6 +5,7 @@ export interface VideoType {
     description: string
     watch_count: number
     likes_count: number
+    duration: number
 }
 
 export interface VideoTypeProps {

@@ -9,13 +9,10 @@ import {useVideoData} from '@/hooks/useVideoData'
 
 /*TODO
     - Controlar que al hacer click en la barra de progreso o en skipPrevious y skipBack no cambie el togglePlay
-    - Mostrar la duración del vídeo en VideoList
     - Cuando la barra de progreso de un vídeo llega al final el vídeo el botón del play debe quedar en pausa
-    - Implementar skeletons Loading
     - Buscar la forma de que se reproduzca el vídeo al hacer hover sobre él (que se propague el evento hacia abajo y no se quede en la card)
     - Hacer Readme documentando tod0 correctamente (como hacer el setup, cómo ejecutar la app y cómo testear las llamadas a la API)
     - Implementar testing
-    - Subir vídeos mucho más largos y chulos al S3
     - (Opcional) Poder editar la el título y descripción del vídeo
     - (Opcional) Crear filtro
     - (Opcional) Crear sección de comentarios -> Nueva tabla en base de datos y nuevo router de tRCP

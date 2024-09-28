@@ -1,7 +1,7 @@
 'use client'
 
 import {Button} from "@/components/ui/button"
-import {Play, Eye, ThumbsUp} from "lucide-react"
+import {Play, Eye, ThumbsUp, Clock} from "lucide-react"
 import {CardTitle} from "@/components/ui/card"
 import {VideoType} from "@/types/VideoType";
 import VideoListSkeleton from "@/loading/VideoListSkeleton";
@@ -54,6 +54,10 @@ const VideoList = ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementW
                                 <div className="flex items-center">
                                     <Eye className="h-4 w-4 mr-1"/>
                                     <span>{video.watch_count.toLocaleString()}</span>
+                                </div>
+                                <div className="flex items-center">
+                                    <Clock className="h-4 w-4 mr-1 ml-3"/>
+                                    <span>{video.duration}</span>
                                 </div>
                                 <Button
                                     variant="ghost"
