@@ -11,7 +11,7 @@ const VideoListSkeleton = () => {
             </div>
 
             {/* Contenedor de los videos */}
-            <div className="flex-grow overflow-y-auto space-y-4 p-4 flex flex-row lg:flex lg:flex-col gap-4 bg-gray-100 rounded-lg">
+            <div className="flex-grow overflow-y-auto p-4 flex flex-row lg:flex lg:flex-col gap-4 bg-gray-100 rounded-lg">
                 {/* Generamos varios skeletons para simular varios videos */}
                 {[...Array(4)].map((_, index) => (
                     <div

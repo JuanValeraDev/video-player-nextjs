@@ -24,16 +24,16 @@ const VideoList = ({ videos, onChangeVideoPlaying, onIncrementLikes, onIncrement
     ) : (
         <div className="flex flex-col max-h-dvh p-0">
             <div className="sticky top-0 bg-background z-10 p-4 flex justify-between items-center  flex-col">
-                <CardTitle className="text-2xl font-bold">List of Videos</CardTitle>
+                <CardTitle className="text-2xl font-bold mb-4">List of Videos</CardTitle>
                 <input
                     type="text"
                     placeholder="Search videos..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="p-2 border rounded"
+                    className="p-2 border rounded mb-4"
                 />
             </div>
-            <div className="flex-grow overflow-y-auto space-y-4 p-4 flex flex-row lg:flex lg:flex-col gap-4 bg-secondary rounded-lg">
+            <div className="flex-grow overflow-y-auto  p-4 flex flex-row lg:flex lg:flex-col gap-4 bg-secondary rounded-lg">
                 {filteredVideos.map((video) => (
                     <VideoListItem
                         key={video.id}

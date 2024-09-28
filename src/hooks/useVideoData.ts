@@ -9,12 +9,13 @@ export const useVideoData = () => {
 
     const [videos, setVideos] = useState<VideoType[]>([])
     const [videoPlaying, setVideoPlaying] = useState<VideoType>({
-        id: "",
+        id: "0",
         url: "",
         title: "",
         description: "",
         watch_count: 0,
-        likes_count: 0
+        likes_count: 0,
+        duration: 0,
     })
     const [resetPlayer, setResetPlayer] = useState(false)
 

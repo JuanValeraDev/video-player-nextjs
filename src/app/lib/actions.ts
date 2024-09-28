@@ -35,7 +35,7 @@ export async function getVideos() {
     const supabase = await createClient();
     const {data: videos} = await supabase.from("videos")
         .select()
-        .order('created_at', {ascending: false})
+        .order('created_at', {ascending: true})
     return {data: videos}
 }
 

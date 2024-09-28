@@ -1,6 +1,7 @@
+'use client'
 
-import VideoAppLayout from "@/components/VideoAppLayout";
+import HomeLayout from '@/components/HomeLayout'
 
 export default function Home() {
-    return <VideoAppLayout/>
+    return <HomeLayout/>
 }
