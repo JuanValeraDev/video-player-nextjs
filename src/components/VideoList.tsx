@@ -1,85 +1,52 @@
 'use client'
 
-import {Button} from "@/components/ui/button"
-import {Play, Eye, ThumbsUp, Clock} from "lucide-react"
-import {CardTitle} from "@/components/ui/card"
-import {VideoType} from "@/types/VideoType";
+import React, { useState } from 'react';
+import { CardTitle } from "@/components/ui/card";
+import { VideoType } from "@/types/VideoType";
 import VideoListSkeleton from "@/loading/VideoListSkeleton";
+import VideoListItem from "@/components/VideoListItem";
 
-
-const VideoList = ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementWatches}: {
-    videos: VideoType[]
+const VideoList = ({ videos, onChangeVideoPlaying, onIncrementLikes, onIncrementWatches }: {
+    videos: VideoType[],
     onChangeVideoPlaying: (video: VideoType) => void,
     onIncrementLikes: (id: string) => void,
     onIncrementWatches: (id: string) => void
 }) => {
+    const [searchTerm, setSearchTerm] = useState('');
     const isLoading = !videos || videos.length === 0;
+
+    const filteredVideos = videos.filter(video =>
+        video.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return isLoading ? (
         <VideoListSkeleton />
     ) : (
         <div className="flex flex-col max-h-dvh p-0">
-            <div className="sticky top-0 bg-background z-10 p-4 ">
+            <div className="sticky top-0 bg-background z-10 p-4 flex justify-between items-center  flex-col">
                 <CardTitle className="text-2xl font-bold">List of Videos</CardTitle>
+                <input
+                    type="text"
+                    placeholder="Search videos..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="p-2 border rounded"
+                />
             </div>
-            <div
-                className="flex-grow overflow-y-auto space-y-4 p-4 flex flex-row lg:flex lg:flex-col gap-4 bg-secondary rounded-lg">
-                {videos && videos.map((video) => (
-                    <div
+            <div className="flex-grow overflow-y-auto space-y-4 p-4 flex flex-row lg:flex lg:flex-col gap-4 bg-secondary rounded-lg">
+                {filteredVideos.map((video) => (
+                    <VideoListItem
                         key={video.id}
-                        className="bg-card text-card-foreground rounded-lg shadow-md
-                        transition-transform hover:scale-105 flex flex-col lg:h-[400px]
-                        flex-grow hover:cursor-pointer
-                        "
-                        onClick={() => {
-                            onChangeVideoPlaying(video)
-                            onIncrementWatches(video.id)
-                        }}
-                    >
-                        <div className="relative flex-grow">
-                            <video
-                                src={video.url}
-                                className="w-full h-full object-cover rounded-t"
-                            />
-                            <div
-                                className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                                <Button variant="ghost" size="icon" className="text-gray-200" aria-label="Play video">
-                                    <Play className="h-12 w-12"/>
-                                </Button>
-                            </div>
-                        </div>
-                        <div className="p-4 flex flex-col justify-between ">
-                            <h3 className="font-semibold text-lg mb-2 line-clamp-2">{video.title}</h3>
-                            <p className="text-sm text-muted-foreground line-clamp-2">{video.description}</p>
-                            <div className="flex items-center justify-between text-sm text-muted-foreground">
-                                <div className="flex items-center">
-                                    <Eye className="h-4 w-4 mr-1"/>
-                                    <span>{video.watch_count.toLocaleString()}</span>
-                                </div>
-                                <div className="flex items-center">
-                                    <Clock className="h-4 w-4 mr-1 ml-3"/>
-                                    <span>{video.duration}</span>
-                                </div>
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={(event) => {
-                                        event.preventDefault()
-                                        event.stopPropagation()
-                                        onIncrementLikes(video.id)
-                                    }}
-                                    className="flex items-center"
-                                >
-                                    <ThumbsUp className="h-4 w-4 mr-1"/>
-                                    <span>{video.likes_count.toLocaleString()}</span>
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
+                        video={video}
+                        onChangeVideoPlaying={() => onChangeVideoPlaying(video)}
+                        onIncrementWatches={() => onIncrementWatches(video.id)}
+                        onIncrementLikes={() => onIncrementLikes(video.id)}
+                    />
                 ))}
             </div>
         </div>
-    )
+    );
 }
 
-VideoList.displayName = 'VideoList'
-export default VideoList
+VideoList.displayName = 'VideoList';
+export default VideoList;
