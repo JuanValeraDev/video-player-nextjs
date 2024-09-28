@@ -5,20 +5,25 @@ import VideoList from './VideoList'
 import VideoPlayerCard from "@/components/VideoPlayerCard"
 import {Loading} from "@/components/Loading"
 import {useVideoData} from '@/hooks/useVideoData'
-import { Button } from './ui/button'
+import {Button} from './ui/button'
 
 
 /*TODO
-    - Implementar dark mode
+    - Limpiar código en general !!!
+    Mejoras:
+    - Poner Carrusel en VideoList para que se manejen más fácilmente los vídeos
+    - Poner una dirección de Home con la lista de vídeos que al seleccionar uno te lleve al reproductor (con el listdo a la derecha)
+    - En el Home pueden haber tres VideoListHorizontales por categorías
+    - El Título de arriba a la izquierda en el header te debe llevar a Home y a la izquierda un menú hamburguesa para cambiar el modo oscuro y ir al about
+    - Hacer Readme documentando tod0 correctamente (como hacer el setup, cómo ejecutar la app y cómo testear las llamadas a la API)
+    Bugs:
     - Controlar que al hacer click en la barra de progreso o en skipPrevious y skipBack no cambie el togglePlay
     - Cuando la barra de progreso de un vídeo llega al final el vídeo el botón del play debe quedar en pausa
-    - Buscar la forma de que se reproduzca el vídeo al hacer hover sobre él (que se propague el evento hacia abajo y no se quede en la card)
-    - Hacer Readme documentando tod0 correctamente (como hacer el setup, cómo ejecutar la app y cómo testear las llamadas a la API)
-    - Implementar testing
-    - (Opcional) Poder editar la el título y descripción del vídeo
+    Opcionales:
+    - (Opcional) Buscar la forma de que se reproduzca el vídeo al hacer hover sobre él (que se propague el evento hacia abajo y no se quede en la card)
+    - (Opcional) Implementar testing
     - (Opcional) Crear filtro
     - (Opcional) Crear sección de comentarios -> Nueva tabla en base de datos y nuevo router de tRCP
-    - Limipar código en general
 
  */
 
