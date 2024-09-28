@@ -22,11 +22,11 @@ const VideoList = ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementW
                 <CardTitle className="text-2xl font-bold">List of Videos</CardTitle>
             </div>
             <div
-                className="flex-grow overflow-y-auto space-y-4 p-4 flex flex-row lg:flex lg:flex-col gap-4 bg-gray-100 rounded-lg">
+                className="flex-grow overflow-y-auto space-y-4 p-4 flex flex-row lg:flex lg:flex-col gap-4 bg-secondary rounded-lg">
                 {videos && videos.map((video) => (
                     <div
                         key={video.id}
-                        className="bg-card bg-white text-card-foreground rounded-lg shadow-md
+                        className="bg-card text-card-foreground rounded-lg shadow-md
                         transition-transform hover:scale-105 flex flex-col lg:h-[400px]
                         flex-grow hover:cursor-pointer
                         "

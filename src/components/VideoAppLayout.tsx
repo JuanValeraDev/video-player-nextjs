@@ -1,13 +1,15 @@
 "use client"
 
-import React, {Suspense} from 'react'
+import React, {Suspense, useEffect, useState} from 'react'
 import VideoList from './VideoList'
 import VideoPlayerCard from "@/components/VideoPlayerCard"
 import {Loading} from "@/components/Loading"
 import {useVideoData} from '@/hooks/useVideoData'
+import { Button } from './ui/button'
 
 
 /*TODO
+    - Implementar dark mode
     - Controlar que al hacer click en la barra de progreso o en skipPrevious y skipBack no cambie el togglePlay
     - Cuando la barra de progreso de un vídeo llega al final el vídeo el botón del play debe quedar en pausa
     - Buscar la forma de que se reproduzca el vídeo al hacer hover sobre él (que se propague el evento hacia abajo y no se quede en la card)
@@ -16,7 +18,6 @@ import {useVideoData} from '@/hooks/useVideoData'
     - (Opcional) Poder editar la el título y descripción del vídeo
     - (Opcional) Crear filtro
     - (Opcional) Crear sección de comentarios -> Nueva tabla en base de datos y nuevo router de tRCP
-    - (Opcional) Volver a Next15
     - Limipar código en general
 
  */
@@ -31,10 +32,28 @@ const VideoAppLayout = () => {
         handleIncrementWatches
     } = useVideoData()
 
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    const toggleDarkMode = () => {
+        document.documentElement.classList.toggle('dark');
+        setIsDarkMode(!isDarkMode);
+    };
+
+    useEffect(() => {
+        if (isDarkMode) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    }, [isDarkMode]);
+
     return (
         <div className="flex flex-col p-0">
-            <header className="bg-primary text-primary-foreground p-4">
+            <header className="bg-primary text-primary-foreground p-4 flex justify-between items-center">
                 <h1 className="text-2xl font-bold ms-10">Video Player</h1>
+                <Button onClick={toggleDarkMode}>
+                    {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+                </Button>
             </header>
 
             <div className="flex-grow overflow-hidden flex min-h-screen">

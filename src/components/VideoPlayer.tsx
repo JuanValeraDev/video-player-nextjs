@@ -154,7 +154,7 @@ const VideoPlayer = ({video, resetPlayer}: VideoTypeProps & {
 
     return (
         <div ref={playerRef}
-             className="relative w-full h-full mx-auto bg-gray-900 rounded-lg shadow-xl hover:cursor-pointer"
+             className=" card relative w-full h-full mx-auto bg-secondary-foreground rounded-lg shadow-xl hover:cursor-pointer"
              onClick={togglePlay}>
             <video
                 ref={videoRef}
