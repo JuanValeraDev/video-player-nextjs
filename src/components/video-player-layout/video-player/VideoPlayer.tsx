@@ -1,12 +1,12 @@
 "use client"
 
-import { useState, useRef, useEffect } from 'react'
-import { Slider } from "@/components/ui/slider"
-import { Button } from "@/components/ui/button"
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Maximize, Minimize, Settings } from 'lucide-react'
-import { VideoTypeProps } from "@/types/VideoType"
+import {useState, useRef, useEffect} from 'react'
+import {Slider} from "@/components/ui/slider"
+import {Button} from "@/components/ui/button"
+import {Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Maximize, Minimize, Settings} from 'lucide-react'
+import {VideoTypeProps} from "@/types/VideoType"
 
-const VideoPlayer = ({ video, resetPlayer }: VideoTypeProps & { resetPlayer: boolean }) => {
+const VideoPlayer = ({video, resetPlayer}: VideoTypeProps & { resetPlayer: boolean }) => {
     const [isPlaying, setIsPlaying] = useState(false)
     const [progress, setProgress] = useState(0)
     const [volume, setVolume] = useState(1)
@@ -36,8 +36,14 @@ const VideoPlayer = ({ video, resetPlayer }: VideoTypeProps & { resetPlayer: boo
     useEffect(() => {
         const playVideo = async () => {
             if (videoRef.current) {
+                videoRef.current.load()
                 try {
-                    await videoRef.current.play()
+                    const playPromise = videoRef.current.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(_ => {
+                        }).catch(error => {
+                        });
+                    }
                     setIsPlaying(true)
                 } catch (error) {
                     console.error("Error playing video:", error)
@@ -133,30 +139,75 @@ const VideoPlayer = ({ video, resetPlayer }: VideoTypeProps & { resetPlayer: boo
     }
 
     return (
-        <div ref={playerRef} className="card relative w-full h-full mx-auto bg-secondary-foreground rounded-lg shadow-xl hover:cursor-pointer" onClick={togglePlay}>
-            <video ref={videoRef} className="w-full h-auto object-contain rounded-t" src={video.url} />
+        <div ref={playerRef}
+             className="card relative w-full h-full mx-auto bg-secondary-foreground rounded-lg shadow-xl hover:cursor-pointer"
+             onClick={togglePlay}>
+            <video preload="none" ref={videoRef} className="w-full h-auto object-contain rounded-t" src={video.url}/>
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-                <Slider value={[progress]} max={100} step={0.1} onValueChange={handleProgressChange} className="w-full mb-4" />
+                <Slider value={[progress]} max={100} step={0.1} onValueChange={handleProgressChange}
+                        onClick={(event) => {
+                            event.preventDefault()
+                            event.stopPropagation()
+
+                        }}
+                        className="w-full mb-4"/>
                 <div className="flex items-center justify-between text-white">
                     <div className="flex items-center space-x-2">
-                        <Button variant="ghost" size="icon" onClick={() => skip(-10)}><SkipBack className="h-4 w-4" /></Button>
-                        <Button variant="ghost" size="icon" onClick={togglePlay}>{isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}</Button>
-                        <Button variant="ghost" size="icon" onClick={() => skip(10)}><SkipForward className="h-4 w-4" /></Button>
+                        <Button variant="ghost" size="icon" onClick={(event) => {
+                            event.preventDefault()
+                            event.stopPropagation()
+                            skip(-10)
+                        }}><SkipBack className="h-4 w-4"/></Button>
+                        <Button variant="ghost" size="icon" onClick={togglePlay}>{isPlaying ?
+                            <Pause className="h-6 w-6"/> : <Play className="h-6 w-6"/>}</Button>
+                        <Button variant="ghost" size="icon" onClick={(event) => {
+                            event.preventDefault()
+                            event.stopPropagation()
+                            skip(10)
+                        }}><SkipForward className="h-4 w-4"/></Button>
                         <div className="flex items-center space-x-2">
-                            <Button variant="ghost" size="icon" onClick={toggleMute}>{isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}</Button>
-                            <Slider value={[volume]} max={1} step={0.1} onValueChange={handleVolumeChange} className="w-20" />
+                            <Button variant="ghost" size="icon" onClick={(event) => {
+                                event.preventDefault()
+                                event.stopPropagation()
+                                toggleMute()
+                            }}>{isMuted ?
+                                <VolumeX className="h-4 w-4"/> : <Volume2 className="h-4 w-4"/>}</Button>
+                            <Slider value={[volume]} max={1} step={0.1} onValueChange={handleVolumeChange}
+                                    className="w-20"
+                                    onClick={(event) => {
+                                        event.preventDefault()
+                                        event.stopPropagation()
+                                    }}/>
                         </div>
                         <span className="text-sm">{formatTime(currentTime)} / {formatTime(duration)}</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                        <select value={playbackRate} onChange={(e) => changePlaybackRate(parseFloat(e.target.value))} className="bg-transparent text-white text-sm">
+                        <select value={playbackRate}
+                                onClick={(event) => {
+                                    event.preventDefault()
+                                    event.stopPropagation()
+                                }}
+                                onChange={(event) => {
+                                    event.preventDefault()
+                                    event.stopPropagation()
+                                    changePlaybackRate(parseFloat(event.target.value))
+                                }}
+                                className="bg-transparent text-white text-sm">
                             <option value="0.5">0.5x</option>
                             <option value="1">1x</option>
                             <option value="1.5">1.5x</option>
                             <option value="2">2x</option>
                         </select>
-                        <Button variant="ghost" size="icon" onClick={toggleFullscreen}>{isFullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}</Button>
-                        <Button variant="ghost" size="icon"><Settings className="h-4 w-4" /></Button>
+                        <Button variant="ghost" size="icon" onClick={(event) => {
+                            event.preventDefault()
+                            event.stopPropagation()
+                            toggleFullscreen()
+                        }}>{isFullscreen ?
+                            <Minimize className="h-4 w-4"/> : <Maximize className="h-4 w-4"/>}</Button>
+                        <Button variant="ghost" size="icon" onClick={(event) => {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }}><Settings className="h-4 w-4"/></Button>
                     </div>
                 </div>
             </div>

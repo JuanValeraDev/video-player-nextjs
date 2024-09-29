@@ -5,7 +5,6 @@ import {CardTitle} from "@/components/ui/card";
 import {VideoType} from "@/types/VideoType";
 import VideoListSkeleton from "@/loading/VideoListSkeleton";
 import VideoItemCard from "@/components/VideoItemCard";
-import Link from "next/link";
 
 const VideoList = ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementWatches}: {
     videos: VideoType[],

@@ -54,6 +54,7 @@ const VideoPlayerLayout = () => {
             document.documentElement.classList.remove('dark');
         }
     }, [isDarkMode]);
+
     useEffect(() => {
         if (id && videos.length > 0) {
             const video = videos.find(video => video.id === id);
@@ -62,6 +63,8 @@ const VideoPlayerLayout = () => {
             }
         }
     }, [id, videos]);
+
+
 
     return (
         <div className="flex flex-col p-0">
