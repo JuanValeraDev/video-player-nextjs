@@ -6,7 +6,9 @@ import {Button} from "@/components/ui/button"
 import {Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Maximize, Minimize, Settings} from 'lucide-react'
 import {VideoTypeProps} from "@/types/VideoType"
 
-const VideoPlayer = ({video, resetPlayer}: VideoTypeProps & { resetPlayer: boolean }) => {
+const VideoPlayer = ({video, resetPlayer}: VideoTypeProps & {
+    resetPlayer: boolean,
+}) => {
     const [isPlaying, setIsPlaying] = useState(false)
     const [progress, setProgress] = useState(0)
     const [volume, setVolume] = useState(1)
@@ -26,11 +28,12 @@ const VideoPlayer = ({video, resetPlayer}: VideoTypeProps & { resetPlayer: boole
             setProgress((video.currentTime / video.duration) * 100)
             setCurrentTime(video.currentTime)
         }
-
         video.addEventListener('timeupdate', updateProgress)
         video.addEventListener('loadedmetadata', () => setDuration(video.duration))
+        return () => {
+            video.removeEventListener('timeupdate', updateProgress)
+        }
 
-        return () => video.removeEventListener('timeupdate', updateProgress)
     }, [])
 
     useEffect(() => {

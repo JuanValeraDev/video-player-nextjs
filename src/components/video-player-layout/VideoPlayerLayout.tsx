@@ -17,7 +17,6 @@ import VideoListSkeleton from "@/loading/VideoListSkeleton";
     - Añadir enlace a LinkedIn
     Bugs:
     - Al hacer click en like en Home no se actualiza y en playerLayout resetea el vídeo
-    - Revisar colores en general -> Buscadores
     - Al refrescar el reproductor no se reproduce la canción
     - Cuando la barra de progreso de un vídeo llega al final el vídeo el botón del play debe quedar en pausa
 

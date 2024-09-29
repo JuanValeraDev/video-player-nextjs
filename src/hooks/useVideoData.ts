@@ -72,5 +72,5 @@ export const useVideoData = () => {
         })
     }
 
-    return {videos, videoPlaying, resetPlayer, handleVideoToPlay, handleIncrementLikes, handleIncrementWatches}
+    return {videos, videoPlaying, setResetPlayer, handleVideoToPlay, handleIncrementLikes, handleIncrementWatches}
 }
