@@ -6,7 +6,6 @@ export const useVideoData = () => {
     const {data} = trpc.getVideos.useQuery()
     const incrementLikesMutation = trpc.incrementLikes.useMutation()
     const incrementWatchesMutation = trpc.incrementWatches.useMutation()
-
     const [videos, setVideos] = useState<VideoType[]>([])
     const [videoPlaying, setVideoPlaying] = useState<VideoType>({
         id: "0",

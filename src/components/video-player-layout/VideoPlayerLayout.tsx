@@ -1,7 +1,7 @@
 "use client"
 
 import React, {Suspense, useEffect, useState} from 'react'
-import VideoList from './VideoList'
+import VideoList from './video-player-list/VideoList'
 import VideoPlayerCard from "@/components/video-player-layout/video-player/VideoPlayerCard"
 import {useVideoData} from '@/hooks/useVideoData'
 import {Button} from '../ui/button'

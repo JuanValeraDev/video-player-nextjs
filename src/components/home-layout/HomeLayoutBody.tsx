@@ -1,6 +1,6 @@
 import Link from "next/link";
 import VideoItemCard from "@/components/VideoItemCard";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {VideoType} from "@/types/VideoType";
 import {useVideoData} from "@/hooks/useVideoData";
 import HomeLayoutBodySkeleton from "@/loading/HomeLayoutBodySkeleton";
@@ -11,7 +11,13 @@ const HomeLayoutBody = ({filteredVideos}: {
 
     const {handleVideoToPlay, handleIncrementLikes, handleIncrementWatches} = useVideoData()
 
-    const isLoading = !filteredVideos || filteredVideos.length === 0;
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), 200);
+        return () => clearTimeout(timer);
+    }, [filteredVideos]);
+
 
     return isLoading ? <HomeLayoutBodySkeleton/> :
         <div className="overflow-y-auto p-4 grid gap-2 bg-secondary rounded-lg justify-items-center "
