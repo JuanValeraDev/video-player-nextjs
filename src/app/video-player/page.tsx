@@ -1,6 +1,6 @@
 
-import VideoAppLayout from "@/components/VideoAppLayout";
+import VideoPlayerLayout from "@/components/video-player-layout/VideoPlayerLayout";
 
 export default function Page() {
-    return <VideoAppLayout/>
+    return <VideoPlayerLayout/>
 }

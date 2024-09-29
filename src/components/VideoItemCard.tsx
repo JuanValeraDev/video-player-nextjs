@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Clock, Eye, Play, ThumbsUp } from "lucide-react";
 import { VideoType } from "@/types/VideoType";
 
-const VideoListItem = ({ video, onChangeVideoPlaying, onIncrementWatches, onIncrementLikes }: {
+const VideoItemCard = ({ video, onChangeVideoPlaying, onIncrementWatches, onIncrementLikes }: {
     video: VideoType,
     onChangeVideoPlaying: (video: VideoType) => void,
     onIncrementLikes: (id: string) => void,
@@ -59,5 +59,5 @@ const VideoListItem = ({ video, onChangeVideoPlaying, onIncrementWatches, onIncr
     );
 }
 
-VideoListItem.displayName = 'VideoListItem';
-export default VideoListItem;
+VideoItemCard.displayName = 'VideoItemCard';
+export default VideoItemCard;

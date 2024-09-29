@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { CardTitle } from "@/components/ui/card";
 import { VideoType } from "@/types/VideoType";
 import VideoListSkeleton from "@/loading/VideoListSkeleton";
-import VideoListItem from "@/components/VideoListItem";
+import VideoItemCard from "@/components/VideoItemCard";
 
 const VideoList = ({ videos, onChangeVideoPlaying, onIncrementLikes, onIncrementWatches }: {
     videos: VideoType[],
@@ -35,7 +35,7 @@ const VideoList = ({ videos, onChangeVideoPlaying, onIncrementLikes, onIncrement
             </div>
             <div className="flex-grow overflow-y-auto  p-4 flex flex-row lg:flex lg:flex-col gap-4 bg-secondary rounded-lg">
                 {filteredVideos.map((video) => (
-                    <VideoListItem
+                    <VideoItemCard
                         key={video.id}
                         video={video}
                         onChangeVideoPlaying={() => onChangeVideoPlaying(video)}

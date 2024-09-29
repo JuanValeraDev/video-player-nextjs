@@ -2,34 +2,32 @@
 
 import React, {Suspense, useEffect, useState} from 'react'
 import VideoList from './VideoList'
-import VideoPlayerCard from "@/components/VideoPlayerCard"
-import {Loading} from "@/components/Loading"
+import VideoPlayerCard from "@/components/video-player-layout/video-player/VideoPlayerCard"
 import {useVideoData} from '@/hooks/useVideoData'
-import {Button} from './ui/button'
+import {Button} from '../ui/button'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import VideoPlayerCardSkeleton from "@/loading/VideoPlayerCardSkeleton";
+import VideoListSkeleton from "@/loading/VideoListSkeleton";
 
 
 
 /*TODO
     - Limpiar código en general !!!
     Mejoras:
-    - Hacer Readme documentando tod0 correctamente (como hacer el setup, cómo ejecutar la app y cómo testear las llamadas a la API)
+    - Añadir enlace a LinkedIn
     - Cambiar los vídeos largos por cortos y con sonido contante
-    - Que al hacer click en homeLayout se resetee el buscador
     - Creo que aunque vuelvas al home se sigue reproduciendo el vídeo por detrás (o algo raro pasa)
     Bugs:
     - Revisar colores en general -> Buscadores
     - Controlar que al hacer click en la barra de progreso o en skipPrevious y skipBack no cambie el togglePlay
     - Cuando la barra de progreso de un vídeo llega al final el vídeo el botón del play debe quedar en pausa
     Opcionales:
-    - (Opcional) Buscar la forma de que se reproduzca el vídeo al hacer hover sobre él (que se propague el evento hacia abajo y no se quede en la card)
     - (Opcional) Implementar testing
-    - (Opcional) Crear sección de comentarios -> Nueva tabla en base de datos y nuevo router de tRCP
 
  */
 
-const VideoAppLayout = () => {
+const VideoPlayerLayout = () => {
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
 
@@ -80,7 +78,7 @@ const VideoAppLayout = () => {
                 <div className="h-full container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-4 h-full sm:mx-8 lg:mx-2 justify-around">
                         <div className="w-full lg:w-3/4  lg:my-20 mt-10 l:mt-4 max-w-2xl">
-                            <Suspense fallback={<Loading/>}>
+                            <Suspense fallback={<VideoPlayerCardSkeleton/>}>
                                 <VideoPlayerCard
                                     video={videoPlaying}
                                     resetPlayer={resetPlayer}
@@ -90,7 +88,7 @@ const VideoAppLayout = () => {
                         </div>
 
                         <div className="w-full lg:w-1/4 overflow-y-auto lg:ml-0">
-                            <Suspense fallback={<Loading/>}>
+                            <Suspense fallback={<VideoListSkeleton/>}>
                                 <VideoList
                                     videos={videos}
                                     onChangeVideoPlaying={handleVideoToPlay}
@@ -109,5 +107,5 @@ const VideoAppLayout = () => {
     )
 }
 
-VideoAppLayout.displayName = 'VideoAppLayout'
-export default VideoAppLayout
+VideoPlayerLayout.displayName = 'VideoPlayerLayout'
+export default VideoPlayerLayout

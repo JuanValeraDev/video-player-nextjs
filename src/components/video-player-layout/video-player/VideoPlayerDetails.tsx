@@ -5,7 +5,7 @@ import {ThumbsUp, Eye} from "lucide-react"
 import {VideoTypeProps} from '@/types/VideoType'
 
 
-const VideoDetails= ({video, onIncrementLikes}: VideoTypeProps & {
+const VideoPlayerDetails= ({video, onIncrementLikes}: VideoTypeProps & {
     onIncrementLikes: (id: string) => void;
 }) => {
     return (
@@ -16,7 +16,7 @@ const VideoDetails= ({video, onIncrementLikes}: VideoTypeProps & {
                     <div className="flex items-center">
                         <Eye className="h-5 w-5 mr-2 text-muted-foreground"/>
                         <span
-                            className="text-muted-foreground">{(video.watch_count + 1).toLocaleString()} views</span>
+                            className="text-muted-foreground">{video.watch_count.toLocaleString()} views</span>
                     </div>
                     <div className="flex items-center">
                         <ThumbsUp className="h-5 w-5 mr-2 text-muted-foreground"/>
@@ -40,6 +40,6 @@ const VideoDetails= ({video, onIncrementLikes}: VideoTypeProps & {
     )
 }
 
-VideoDetails.displayName = "VideoDetails";
+VideoPlayerDetails.displayName = "VideoPlayerDetails";
 
-export default VideoDetails;
+export default VideoPlayerDetails;

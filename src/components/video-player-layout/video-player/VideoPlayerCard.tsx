@@ -2,7 +2,7 @@
 
 import {Card, CardContent} from "@/components/ui/card"
 import VideoPlayer from './VideoPlayer'
-import VideoDetails from './VideoDetails'
+import VideoPlayerDetails from './VideoPlayerDetails'
 import {VideoTypeProps} from "@/types/VideoType";
 import VideoPlayerCardSkeleton from "@/loading/VideoPlayerCardSkeleton";
 import {useEffect, useState} from "react";
@@ -30,7 +30,7 @@ const VideoPlayerCard = ({
                     <VideoPlayer video={video} resetPlayer={resetPlayer}/>
                 </div>
                 <div className="p-6">
-                    <VideoDetails
+                    <VideoPlayerDetails
                         video={video}
                         onIncrementLikes={onIncrementLikes}
                     />

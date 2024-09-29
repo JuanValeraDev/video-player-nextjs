@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Video Player Application
 
-## Getting Started
+This project is an exercise to practice Next.js, utilizing tRPC for client-server communication and server actions to
+interact with a Supabase database. The application is styled with TailwindCSS and Shadcn, featuring a fully responsive
+design. It allows users to view a collection of videos uploaded to AWS and play them in a video player. The application
+manages the state of likes and watches for each video, uses the App Router for navigation, and shares information
+between pages through the URL. It also supports light and dark modes and displays loading skeletons while data is being
+fetched.
 
-First, run the development server:
+## Features
+
+- **Next.js**: Framework for building the application.
+- **tRPC**: Used for client-server communication.
+- **Supabase**: Database for storing video metadata and user interactions.
+- **TailwindCSS & Shadcn**: For styling and responsive design.
+- **AWS**: Storage for video files.
+- **App Router**: For navigation between pages.
+- **Light/Dark Mode**: Toggle between light and dark themes.
+- **Loading Skeletons**: Displayed while data is being loaded.
+- **State Management**: Manages likes and watches for each video.
+
+## Installation
+
+To install the dependencies, it is recommended to use `pnpm`, but you can use npm or yarn too:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Running the Application
+To start the development server, run:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This will start the application on http://localhost:3000.  
+## Testing the API
+To test the API, you can use any API testing tool like Postman or Insomnia. Here are some example endpoints you can
+test:
 
-## Learn More
+```bash
+Get Videos: GET /api/trpc/getVideos
+```
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+Increment Likes: POST /api/trpc/incrementLikes
+Headers: Key: Content-Type Value: application/json
+Body: {"videoId":":id"}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+Increment Watches: POST /api/trpc/incrementWatches
+Headers: Key: Content-Type Value: application/json
+Body: {"videoId":":id"}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Make sure to replace :id with the actual video ID.
 
-## Deploy on Vercel
+### Additional Information
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* Responsive Design: The application is designed to be fully responsive, adapting to different screen sizes.
+* Dark Mode: Users can toggle between light and dark modes for a better viewing experience.
+* Loading Skeletons: While data is being fetched, loading skeletons are displayed to improve user experience.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Development Notes
+
+* Code Quality: The code has been structured to be clean and maintainable.
+
+## Author JuanValeraDev
+
+LinkedIn: https://www.linkedin.com/in/juan-valera-reales/
+
