@@ -21,7 +21,6 @@ const VideoItemCard = ({video, onChangeVideoPlaying, onIncrementWatches, onIncre
                 onChangeVideoPlaying(video);
                 onIncrementWatches(video.id);
                 router.push(`/video-player?id=${video.id}`)
-                console.log("onClick de Card, video.title: "+video.title )
             }}
         >
 

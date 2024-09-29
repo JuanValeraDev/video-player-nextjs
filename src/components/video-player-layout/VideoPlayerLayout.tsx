@@ -13,17 +13,13 @@ import VideoListSkeleton from "@/loading/VideoListSkeleton";
 
 
 /*TODO
-    - Limpiar código en general !!!
     Mejoras:
     - Añadir enlace a LinkedIn
-    - Cambiar los vídeos largos por cortos y con sonido contante
-    - Creo que aunque vuelvas al home se sigue reproduciendo el vídeo por detrás (o algo raro pasa)
     Bugs:
+    - Al hacer click en like en Home no se actualiza y en playerLayout resetea el vídeo
     - Revisar colores en general -> Buscadores
-    - Controlar que al hacer click en la barra de progreso o en skipPrevious y skipBack no cambie el togglePlay
+    - Al refrescar el reproductor no se reproduce la canción
     - Cuando la barra de progreso de un vídeo llega al final el vídeo el botón del play debe quedar en pausa
-    Opcionales:
-    - (Opcional) Implementar testing
 
  */
 

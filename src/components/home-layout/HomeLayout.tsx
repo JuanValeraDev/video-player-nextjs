@@ -35,6 +35,7 @@ export default function Home() {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="p-2 border rounded text-secondary-foreground"
+                    style={{ color: 'hsl(var(--input-foreground))'}}
                 />
                 <Button onClick={toggleDarkMode}>
                     {isDarkMode ? 'Light Mode' : 'Dark Mode'}

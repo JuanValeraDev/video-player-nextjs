@@ -31,6 +31,7 @@ const VideoList = ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementW
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="p-2 border rounded mb-4"
+                    style={{ color: 'hsl(var(--input-foreground))'}}
                 />
             </div>
             <div

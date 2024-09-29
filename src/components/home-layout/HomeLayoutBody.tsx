@@ -21,7 +21,7 @@ const HomeLayoutBody = ({filteredVideos}: {
 
     return isLoading ? <HomeLayoutBodySkeleton/> :
         <div className="overflow-y-auto p-4 grid gap-2 bg-secondary rounded-lg justify-items-center "
-             style={{gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))'}}>
+             style={{gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))' , minHeight: 'calc(100vh - 150px)'}}>
             {filteredVideos.map((video) => (
                 <Link href={`/video-player?id=${video.id}`} key={video.id}>
                     <VideoItemCard
