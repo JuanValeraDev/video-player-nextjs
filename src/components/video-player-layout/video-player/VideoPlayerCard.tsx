@@ -3,16 +3,14 @@
 import {Card, CardContent} from "@/components/ui/card"
 import VideoPlayer from './VideoPlayer'
 import VideoPlayerDetails from './VideoPlayerDetails'
-import {VideoTypeProps} from "@/types/VideoType";
-import VideoPlayerCardSkeleton from "@/loading/VideoPlayerCardSkeleton";
-import {useEffect, useState} from "react";
+import {VideoTypeProps} from "@/types/VideoType"
+import VideoPlayerCardSkeleton from "@/components/loading/VideoPlayerCardSkeleton"
+import {useEffect, useState} from "react"
 
 const VideoPlayerCard = ({
                              video,
-                             resetPlayer,
                              onIncrementLikes,
                          }: VideoTypeProps & {
-    resetPlayer: boolean;
     onIncrementLikes: (id: string) => void;
 }) => {
 
@@ -27,7 +25,7 @@ const VideoPlayerCard = ({
         <Card className="lg:mx-10">
             <CardContent className="p-0">
                 <div>
-                    <VideoPlayer video={video} resetPlayer={resetPlayer}/>
+                    <VideoPlayer video={video}/>
                 </div>
                 <div className="p-6">
                     <VideoPlayerDetails

@@ -18,18 +18,19 @@ export const useVideoData = () => {
     })
     const [resetPlayer, setResetPlayer] = useState(false)
 
-
     useEffect(() => {
         if (data && data.data) {
             setVideos(data.data)
         }
     }, [data])
 
+
     useEffect(() => {
         if (resetPlayer) {
             setResetPlayer(false)
         }
     }, [resetPlayer])
+
 
     const handleVideoToPlay = (video: VideoType) => {
         setVideoPlaying(video)
@@ -72,5 +73,5 @@ export const useVideoData = () => {
         })
     }
 
-    return {videos, videoPlaying, setResetPlayer, handleVideoToPlay, handleIncrementLikes, handleIncrementWatches}
+    return {videos, videoPlaying,resetPlayer, handleVideoToPlay, handleIncrementLikes, handleIncrementWatches}
 }

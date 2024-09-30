@@ -6,60 +6,46 @@ import VideoPlayerCard from "@/components/video-player-layout/video-player/Video
 import {useVideoData} from '@/hooks/useVideoData'
 import {Button} from '../ui/button'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
-import VideoPlayerCardSkeleton from "@/loading/VideoPlayerCardSkeleton";
-import VideoListSkeleton from "@/loading/VideoListSkeleton";
-
-
-
-/*TODO
-    Mejoras:
-    - Añadir enlace a LinkedIn
-    Bugs:
-    - Al hacer click en like en Home no se actualiza y en playerLayout resetea el vídeo
-    - Al refrescar el reproductor no se reproduce la canción
-    - Cuando la barra de progreso de un vídeo llega al final el vídeo el botón del play debe quedar en pausa
-
- */
+import {useSearchParams} from 'next/navigation'
+import VideoPlayerCardSkeleton from "@/components/loading/VideoPlayerCardSkeleton"
+import VideoListSkeleton from "@/components/loading/VideoListSkeleton"
+import Footer from "@/components/Footer"
 
 const VideoPlayerLayout = () => {
-    const searchParams = useSearchParams();
-    const id = searchParams.get('id');
+    const searchParams = useSearchParams()
+    const id = searchParams.get('id')
 
     const {
         videos,
         videoPlaying,
-        resetPlayer,
         handleVideoToPlay,
         handleIncrementLikes,
         handleIncrementWatches
     } = useVideoData()
 
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(false)
 
     const toggleDarkMode = () => {
-        document.documentElement.classList.toggle('dark');
-        setIsDarkMode(!isDarkMode);
-    };
+        document.documentElement.classList.toggle('dark')
+        setIsDarkMode(!isDarkMode)
+    }
 
     useEffect(() => {
         if (isDarkMode) {
-            document.documentElement.classList.add('dark');
+            document.documentElement.classList.add('dark')
         } else {
-            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.remove('dark')
         }
-    }, [isDarkMode]);
+    }, [isDarkMode])
 
     useEffect(() => {
         if (id && videos.length > 0) {
-            const video = videos.find(video => video.id === id);
+            const video = videos.find(video => video.id === id)
             if (video) {
-                handleVideoToPlay(video);
+                handleVideoToPlay(video)
             }
         }
-    }, [id, videos]);
-
-
+    }, [id, videos, handleVideoToPlay])
 
     return (
         <div className="flex flex-col p-0">
@@ -79,7 +65,6 @@ const VideoPlayerLayout = () => {
                             <Suspense fallback={<VideoPlayerCardSkeleton/>}>
                                 <VideoPlayerCard
                                     video={videoPlaying}
-                                    resetPlayer={resetPlayer}
                                     onIncrementLikes={handleIncrementLikes}
                                 />
                             </Suspense>
@@ -98,9 +83,7 @@ const VideoPlayerLayout = () => {
                     </div>
                 </div>
             </div>
-            <footer className="bg-primary text-primary-foreground p-4 text-center">
-                <span className="text-l font-bold">Made with ❤️ by JuanValeraDev</span>
-            </footer>
+            <Footer/>
         </div>
     )
 }

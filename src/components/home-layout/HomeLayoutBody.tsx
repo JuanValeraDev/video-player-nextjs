@@ -1,9 +1,9 @@
-import Link from "next/link";
-import VideoItemCard from "@/components/VideoItemCard";
-import React, {useEffect, useState} from "react";
-import {VideoType} from "@/types/VideoType";
-import {useVideoData} from "@/hooks/useVideoData";
-import HomeLayoutBodySkeleton from "@/loading/HomeLayoutBodySkeleton";
+import Link from "next/link"
+import VideoItemCard from "@/components/VideoItemCard"
+import React, {useEffect, useState} from "react"
+import {VideoType} from "@/types/VideoType"
+import {useVideoData} from "@/hooks/useVideoData"
+import HomeLayoutBodySkeleton from "@/components/loading/HomeLayoutBodySkeleton"
 
 const HomeLayoutBody = ({filteredVideos}: {
     filteredVideos: VideoType[]
@@ -11,12 +11,12 @@ const HomeLayoutBody = ({filteredVideos}: {
 
     const {handleVideoToPlay, handleIncrementLikes, handleIncrementWatches} = useVideoData()
 
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 200);
-        return () => clearTimeout(timer);
-    }, [filteredVideos]);
+        const timer = setTimeout(() => setIsLoading(false), 200)
+        return () => clearTimeout(timer)
+    }, [filteredVideos])
 
 
     return isLoading ? <HomeLayoutBodySkeleton/> :

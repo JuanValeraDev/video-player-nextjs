@@ -1,10 +1,10 @@
 'use client'
 
-import {Button} from "@/components/ui/button";
-import {Clock, Eye, Play, ThumbsUp} from "lucide-react";
-import {VideoType} from "@/types/VideoType";
-import {useRouter} from "next/navigation";
-import {Card} from "@/components/ui/card";
+import {Button} from "@/components/ui/button"
+import {Clock, Eye, Play, ThumbsUp} from "lucide-react"
+import {VideoType} from "@/types/VideoType"
+import {useRouter} from "next/navigation"
+import {Card} from "@/components/ui/card"
 
 const VideoItemCard = ({video, onChangeVideoPlaying, onIncrementWatches, onIncrementLikes}: {
     video: VideoType,
@@ -12,18 +12,18 @@ const VideoItemCard = ({video, onChangeVideoPlaying, onIncrementWatches, onIncre
     onIncrementLikes: (id: string) => void,
     onIncrementWatches: (id: string) => void
 }) => {
-    const router = useRouter();
+    const router = useRouter()
+
     return (
         <Card
             key={video.id}
             className="bg-card text-card-foreground my-4 rounded-lg shadow-md transition-transform hover:scale-105 flex flex-col max-h-80 min-h-52 max-w-52 min-w-36 flex-grow hover:cursor-pointer"
             onClick={() => {
-                onChangeVideoPlaying(video);
-                onIncrementWatches(video.id);
+                onChangeVideoPlaying(video)
+                onIncrementWatches(video.id)
                 router.push(`/video-player?id=${video.id}`)
             }}
         >
-
                 <div className="relative flex-grow">
                     <video
                         src={video.url}
@@ -53,9 +53,9 @@ const VideoItemCard = ({video, onChangeVideoPlaying, onIncrementWatches, onIncre
                             variant="ghost"
                             size="icon"
                             onClick={(event) => {
-                                event.preventDefault();
-                                event.stopPropagation();
-                                onIncrementLikes(video.id);
+                                event.preventDefault()
+                                event.stopPropagation()
+                                onIncrementLikes(video.id)
                             }}
                             className="flex items-center"
                         >
@@ -65,8 +65,8 @@ const VideoItemCard = ({video, onChangeVideoPlaying, onIncrementWatches, onIncre
                     </div>
                 </div>
         </Card>
-    );
+    )
 }
 
-VideoItemCard.displayName = 'VideoItemCard';
-export default VideoItemCard;
+VideoItemCard.displayName = 'VideoItemCard'
+export default VideoItemCard

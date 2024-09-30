@@ -1,10 +1,10 @@
 'use client'
 
-import React, {useState} from 'react';
-import {CardTitle} from "@/components/ui/card";
-import {VideoType} from "@/types/VideoType";
-import VideoListSkeleton from "@/loading/VideoListSkeleton";
-import VideoItemCard from "@/components/VideoItemCard";
+import React, {useState} from 'react'
+import {CardTitle} from "@/components/ui/card"
+import {VideoType} from "@/types/VideoType"
+import VideoListSkeleton from "@/components/loading/VideoListSkeleton"
+import VideoItemCard from "@/components/VideoItemCard"
 
 const VideoList = ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementWatches}: {
     videos: VideoType[],
@@ -47,8 +47,8 @@ const VideoList = ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementW
                 ))}
             </div>
         </div>
-    );
+    )
 }
 
-VideoList.displayName = 'VideoList';
-export default VideoList;
+VideoList.displayName = 'VideoList'
+export default VideoList

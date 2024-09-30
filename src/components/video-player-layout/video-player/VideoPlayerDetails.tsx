@@ -6,7 +6,7 @@ import {VideoTypeProps} from '@/types/VideoType'
 
 
 const VideoPlayerDetails= ({video, onIncrementLikes}: VideoTypeProps & {
-    onIncrementLikes: (id: string) => void;
+    onIncrementLikes: (id: string) => void
 }) => {
     return (
         <div className="space-y-4">
@@ -40,6 +40,6 @@ const VideoPlayerDetails= ({video, onIncrementLikes}: VideoTypeProps & {
     )
 }
 
-VideoPlayerDetails.displayName = "VideoPlayerDetails";
+VideoPlayerDetails.displayName = "VideoPlayerDetails"
 
-export default VideoPlayerDetails;
+export default VideoPlayerDetails

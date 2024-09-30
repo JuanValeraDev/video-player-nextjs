@@ -57,16 +57,6 @@ Body: {"videoId":":id"}
 
 Make sure to replace :id with the actual video ID.
 
-### Additional Information
-
-* Responsive Design: The application is designed to be fully responsive, adapting to different screen sizes.
-* Dark Mode: Users can toggle between light and dark modes for a better viewing experience.
-* Loading Skeletons: While data is being fetched, loading skeletons are displayed to improve user experience.
-
-### Development Notes
-
-* Code Quality: The code has been structured to be clean and maintainable.
-
 ## Author JuanValeraDev
 
 LinkedIn: https://www.linkedin.com/in/juan-valera-reales/

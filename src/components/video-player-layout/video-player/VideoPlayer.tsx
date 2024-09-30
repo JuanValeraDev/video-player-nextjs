@@ -5,10 +5,10 @@ import {Slider} from "@/components/ui/slider"
 import {Button} from "@/components/ui/button"
 import {Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Maximize, Minimize, Settings} from 'lucide-react'
 import {VideoTypeProps} from "@/types/VideoType"
+import {useVideoData} from "@/hooks/useVideoData";
 
-const VideoPlayer = ({video, resetPlayer}: VideoTypeProps & {
-    resetPlayer: boolean,
-}) => {
+const VideoPlayer = ({video}: VideoTypeProps
+) => {
     const [isPlaying, setIsPlaying] = useState(false)
     const [progress, setProgress] = useState(0)
     const [volume, setVolume] = useState(1)
@@ -20,18 +20,21 @@ const VideoPlayer = ({video, resetPlayer}: VideoTypeProps & {
     const videoRef = useRef<HTMLVideoElement>(null)
     const playerRef = useRef<HTMLDivElement>(null)
 
+    const {resetPlayer} = useVideoData()
+
     useEffect(() => {
-        const video = videoRef.current
-        if (!video) return
+        const videoElement = videoRef.current
+        if (!videoElement) return
 
         const updateProgress = () => {
-            setProgress((video.currentTime / video.duration) * 100)
-            setCurrentTime(video.currentTime)
+            setProgress((videoElement.currentTime / videoElement.duration) * 100)
+            setCurrentTime(videoElement.currentTime)
         }
-        video.addEventListener('timeupdate', updateProgress)
-        video.addEventListener('loadedmetadata', () => setDuration(video.duration))
+        videoElement.addEventListener('timeupdate', updateProgress)
+        videoElement.addEventListener('loadedmetadata', () => setDuration(videoElement.duration))
+
         return () => {
-            video.removeEventListener('timeupdate', updateProgress)
+            videoElement.removeEventListener('timeupdate', updateProgress)
         }
 
     }, [])
@@ -43,8 +46,8 @@ const VideoPlayer = ({video, resetPlayer}: VideoTypeProps & {
                 try {
                     const playPromise = videoRef.current.play();
                     if (playPromise !== undefined) {
-                        playPromise.then(_ => {
-                        }).catch(error => {
+                        playPromise.then(() => {
+                        }).catch(() => {
                         });
                     }
                     setIsPlaying(true)

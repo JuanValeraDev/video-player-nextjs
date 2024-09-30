@@ -1,25 +1,25 @@
-import {Button} from "@/components/ui/button";
-import React, {Suspense, useState} from "react";
-import {useVideoData} from "@/hooks/useVideoData";
-import {CardTitle} from "@/components/ui/card";
-import Link from "next/link";
-import HomeLayoutBodySkeleton from "@/loading/HomeLayoutBodySkeleton";
-import HomeLayoutBody from "@/components/home-layout/HomeLayoutBody";
+import {Button} from "@/components/ui/button"
+import React, {Suspense, useState} from "react"
+import {useVideoData} from "@/hooks/useVideoData"
+import {CardTitle} from "@/components/ui/card"
+import Link from "next/link"
+import HomeLayoutBodySkeleton from "@/components/loading/HomeLayoutBodySkeleton"
+import HomeLayoutBody from "@/components/home-layout/HomeLayoutBody"
+import Footer from "@/components/Footer"
 
 export default function Home() {
-    const {videos} = useVideoData();
-    const [isDarkMode, setIsDarkMode] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
-
+    const {videos} = useVideoData()
+    const [isDarkMode, setIsDarkMode] = useState(false)
+    const [searchTerm, setSearchTerm] = useState('')
 
     const filteredVideos = videos.filter(video =>
         video.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    )
 
     const toggleDarkMode = () => {
-        document.documentElement.classList.toggle('dark');
-        setIsDarkMode(!isDarkMode);
-    };
+        document.documentElement.classList.toggle('dark')
+        setIsDarkMode(!isDarkMode)
+    }
 
     return (
         <>
@@ -49,9 +49,7 @@ export default function Home() {
                     <HomeLayoutBody filteredVideos={filteredVideos}/>
                 </Suspense>
             </div>
-            <footer className="bg-primary text-primary-foreground p-4 text-center">
-                <span className="text-l font-bold">Made with ❤️ by JuanValeraDev</span>
-            </footer>
+         <Footer/>
         </>
-    );
+    )
 }
