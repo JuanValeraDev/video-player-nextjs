@@ -1,6 +1,6 @@
 "use client"
 
-import React, {Suspense} from 'react'
+import React from 'react'
 import VideoPlayerCardSkeleton from "@/components/loading/VideoPlayerCardSkeleton"
 import VideoListSkeleton from "@/components/loading/VideoListSkeleton"
 import {Button} from '../ui/button'
