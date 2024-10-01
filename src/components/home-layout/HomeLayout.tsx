@@ -9,17 +9,14 @@ import Footer from "@/components/Footer"
 /* TODO
     BUGS:
     - Arreglar el renderizado del grid cuando se hace like
-    - Arreglar problema actual para deploy en Vercel
     - Arreglar el problema de cors para el deploy en Vercel
     MEJORAS:
-    - Mirar la cosa que me ha dicho el Jesús para
-    - Que cambie el botón de like cuando haces click
-    - Añadir el debounce a los buscadores
+    - Mirar la cosa que me ha dicho el Jesús para la rula de settings
+    - Añadir el debounce a los buscadores (Creo que no hace falta)
     FEATURES:
     - Añadir sistema de usuarios
     - Añadir paginación a las búsquedas
     - Añadir sistema de comentarios
-    - Restringir los likes a uno por usuario y vídeo
     - Añadir que se empiece a reproducir el vídeo en la miniatura al poner el ratón encima
  */
 
