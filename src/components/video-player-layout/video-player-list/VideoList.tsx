@@ -6,17 +6,18 @@ import {VideoType} from "@/types/VideoType"
 import VideoListSkeleton from "@/components/loading/VideoListSkeleton"
 import VideoItemCard from "@/components/VideoItemCard"
 
-const VideoList = ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementWatches}: {
+const VideoList = ({videos, videoPlaying, onChangeVideoPlaying, onIncrementLikes, onIncrementWatches}: {
     videos: VideoType[],
+    videoPlaying: VideoType,
     onChangeVideoPlaying: (video: VideoType) => void,
     onIncrementLikes: (id: string) => void,
-    onIncrementWatches: (id: string) => void
+    onIncrementWatches: (id: string) => void,
 }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const isLoading = !videos || videos.length === 0;
 
     const filteredVideos = videos.filter(video =>
-        video.title.toLowerCase().includes(searchTerm.toLowerCase())
+        video.title.toLowerCase().includes(searchTerm.toLowerCase()) && video.id !== videoPlaying.id
     );
 
     return isLoading ? (
@@ -31,19 +32,19 @@ const VideoList = ({videos, onChangeVideoPlaying, onIncrementLikes, onIncrementW
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="p-2 border rounded mb-4"
-                    style={{ color: 'hsl(var(--input-foreground))'}}
+                    style={{color: 'hsl(var(--input-foreground))'}}
                 />
             </div>
             <div
                 className="flex-grow overflow-y-auto  p-4 flex flex-row lg:flex lg:flex-col gap-4 bg-secondary rounded-lg">
                 {filteredVideos.map((video) => (
-                        <VideoItemCard
-                            key={video.id}
-                            video={video}
-                            onChangeVideoPlaying={() => onChangeVideoPlaying(video)}
-                            onIncrementWatches={() => onIncrementWatches(video.id)}
-                            onIncrementLikes={() => onIncrementLikes(video.id)}
-                        />
+                    <VideoItemCard
+                        key={video.id}
+                        video={video}
+                        onChangeVideoPlaying={() => onChangeVideoPlaying(video)}
+                        onIncrementWatches={() => onIncrementWatches(video.id)}
+                        onIncrementLikes={() => onIncrementLikes(video.id)}
+                    />
                 ))}
             </div>
         </div>

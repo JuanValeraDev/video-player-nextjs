@@ -74,6 +74,7 @@ const VideoPlayerLayout = () => {
                             <Suspense fallback={<VideoListSkeleton/>}>
                                 <VideoList
                                     videos={videos}
+                                    videoPlaying={videoPlaying}
                                     onChangeVideoPlaying={handleVideoToPlay}
                                     onIncrementLikes={handleIncrementLikes}
                                     onIncrementWatches={handleIncrementWatches}
