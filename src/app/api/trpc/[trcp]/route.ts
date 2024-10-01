@@ -1,6 +1,6 @@
 // src/app/api/trpc/[trpc]/route.ts
-import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
-import { appRouter } from '@/server';
+import {fetchRequestHandler} from '@trpc/server/adapters/fetch';
+import {appRouter} from '@/server';
 
 const handler = async (request: Request) => {
     // Definir los headers CORS comunes
@@ -36,8 +36,6 @@ const handler = async (request: Request) => {
     });
 };
 
-export { handler as GET, handler as POST };
+export {handler as GET, handler as POST};
 
-export const config = {
-    runtime: 'edge', // Si Edge Runtime no es necesario, puedes considerar eliminar esto
-};
+export const runtime = "edge"
