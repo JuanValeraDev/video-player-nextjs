@@ -49,16 +49,16 @@ const VideoPlayerLayout = () => {
 
     return (
         <div className="flex flex-col p-0">
-            <header className="bg-primary p-4 flex justify-between items-center">
+            <header className="bg-background p-4 flex justify-between items-center">
                 <Link href="/">
-                    <h1 className="text-2xl text-primary-foreground  font-bold ms-10">Video Player</h1>
+                    <h1 className="text-2xl font-bold ms-10">Video Player</h1>
                 </Link>
                 <Button onClick={toggleDarkMode}>
                     {isDarkMode ? 'Light Mode' : 'Dark Mode'}
                 </Button>
             </header>
 
-            <div className="flex-grow overflow-hidden flex min-h-screen">
+            <div className="flex-grow bg-secondary overflow-hidden flex min-h-screen">
                 <div className="h-full container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-4 h-full sm:mx-8 lg:mx-2 justify-around">
                         <div className="w-full lg:w-3/4  lg:my-20 mt-10 l:mt-4 max-w-2xl">

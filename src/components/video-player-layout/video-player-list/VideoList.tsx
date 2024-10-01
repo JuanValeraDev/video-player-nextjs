@@ -23,8 +23,8 @@ const VideoList = ({videos, videoPlaying, onChangeVideoPlaying, onIncrementLikes
     return isLoading ? (
         <VideoListSkeleton/>
     ) : (
-        <div className="flex flex-col max-h-dvh p-0">
-            <div className="sticky top-0 bg-background z-10 p-4 flex justify-between items-center  flex-col">
+        <div className="flex flex-col max-h-dvh p-0 bg-secondary">
+            <div className="sticky top-0 bg-secondary z-10 p-4 flex justify-between items-center  flex-col">
                 <CardTitle className="text-2xl font-bold mb-4">List of Videos</CardTitle>
                 <input
                     type="text"

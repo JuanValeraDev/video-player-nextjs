@@ -41,11 +41,11 @@ export default function Home() {
 
     return (
         <>
-            <header className="bg-primary p-4 flex justify-between items-center">
+            <header className="bg-background p-4 flex justify-between items-center">
                 <Link href="/" onClick={() => {
                     setSearchTerm("")
                 }}>
-                    <h1 className="text-2xl text-primary-foreground  font-bold ms-10">Video Player</h1>
+                    <h1 className="text-2xl font-bold ms-10">Video Player</h1>
                 </Link>
                 <input
                     type="text"
@@ -60,9 +60,6 @@ export default function Home() {
                 </Button>
             </header>
             <div className="flex flex-col max-h-dvh p-0">
-                <div className="sticky top-0 bg-background z-10 p-4 flex justify-between items-center flex-col">
-                    <CardTitle className="text-2xl font-bold ">List of Videos</CardTitle>
-                </div>
                 <Suspense fallback={<HomeLayoutBodySkeleton/>}>
                     <HomeLayoutBody filteredVideos={filteredVideos}/>
                 </Suspense>
