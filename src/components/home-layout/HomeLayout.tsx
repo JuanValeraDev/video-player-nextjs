@@ -1,7 +1,6 @@
 import {Button} from "@/components/ui/button"
-import React, {Suspense, useState} from "react"
+import React, {Suspense, useEffect, useState} from "react"
 import {useVideoData} from "@/hooks/useVideoData"
-import {CardTitle} from "@/components/ui/card"
 import Link from "next/link"
 import HomeLayoutBodySkeleton from "@/components/loading/HomeLayoutBodySkeleton"
 import HomeLayoutBody from "@/components/home-layout/HomeLayoutBody"
@@ -16,7 +15,6 @@ import Footer from "@/components/Footer"
     - Mirar la cosa que me ha dicho el Jesús para
     - Que cambie el botón de like cuando haces click
     - Añadir el debounce a los buscadores
-    - Quitar partes blancas del modo oscuro
     FEATURES:
     - Añadir sistema de usuarios
     - Añadir paginación a las búsquedas
@@ -30,14 +28,24 @@ export default function Home() {
     const [isDarkMode, setIsDarkMode] = useState(false)
     const [searchTerm, setSearchTerm] = useState('')
 
+    useEffect(() => {
+        const darkMode = localStorage.getItem('darkMode') === 'true'
+        setIsDarkMode(darkMode)
+        if (darkMode) {
+            document.documentElement.classList.add('dark')
+        }
+    }, [])
+
+    const toggleDarkMode = () => {
+        const newDarkMode = !isDarkMode
+        document.documentElement.classList.toggle('dark')
+        setIsDarkMode(newDarkMode)
+        localStorage.setItem('darkMode', newDarkMode.toString())
+    }
+
     const filteredVideos = videos.filter(video =>
         video.title.toLowerCase().includes(searchTerm.toLowerCase())
     )
-
-    const toggleDarkMode = () => {
-        document.documentElement.classList.toggle('dark')
-        setIsDarkMode(!isDarkMode)
-    }
 
     return (
         <>

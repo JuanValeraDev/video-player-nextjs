@@ -25,18 +25,20 @@ const VideoPlayerLayout = () => {
 
     const [isDarkMode, setIsDarkMode] = useState(false)
 
-    const toggleDarkMode = () => {
-        document.documentElement.classList.toggle('dark')
-        setIsDarkMode(!isDarkMode)
-    }
-
     useEffect(() => {
-        if (isDarkMode) {
+        const darkMode = localStorage.getItem('darkMode') === 'true'
+        setIsDarkMode(darkMode)
+        if (darkMode) {
             document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
         }
-    }, [isDarkMode])
+    }, [])
+
+    const toggleDarkMode = () => {
+        const newDarkMode = !isDarkMode
+        document.documentElement.classList.toggle('dark')
+        setIsDarkMode(newDarkMode)
+        localStorage.setItem('darkMode', newDarkMode.toString())
+    }
 
     useEffect(() => {
         if (id && videos.length > 0) {
