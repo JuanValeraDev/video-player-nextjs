@@ -14,6 +14,7 @@ const handler = async (request: Request) => {
     // Retornar la respuesta
     return new Response(response.body, {
         ...response,
+        headers: response.headers, // Esto ya incluye los headers que configuras en next.config.js
     });
 };
 
