@@ -28,7 +28,7 @@ const handler = async (request: Request) => {
         ...response,
         headers: {
             ...response.headers,
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': 'https://video-player-nextjs-ten.vercel.app/',
             'Access-Control-Allow-Credentials': 'true',
         },
     });
