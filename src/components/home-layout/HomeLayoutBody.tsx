@@ -1,7 +1,6 @@
 import Link from "next/link"
 import VideoItemCard from "@/components/VideoItemCard"
 import React, {useEffect, useState} from "react"
-import {VideoType} from "@/types/VideoType"
 import {useVideoData} from "@/hooks/useVideoData"
 import HomeLayoutBodySkeleton from "@/components/loading/HomeLayoutBodySkeleton"
 

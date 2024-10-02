@@ -6,9 +6,10 @@ import {VideoTypeProps} from '@/types/VideoType'
 import {useEffect, useState} from "react";
 
 
-const VideoPlayerDetails = ({video, onIncrementLikes}: VideoTypeProps & {
-    onIncrementLikes: (id: string) => void
-}) => {
+const VideoPlayerDetails = ({video, onIncrementLikes}:
+                                VideoTypeProps & {
+                                onIncrementLikes: (id: string) => void
+                            }) => {
 
     const [isLiked, setIsLiked] = useState(false)
 

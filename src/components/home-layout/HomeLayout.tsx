@@ -1,6 +1,5 @@
 import {Button} from "@/components/ui/button"
 import React, {Suspense, useEffect, useState} from "react"
-import {useVideoData} from "@/hooks/useVideoData"
 import Link from "next/link"
 import HomeLayoutBodySkeleton from "@/components/loading/HomeLayoutBodySkeleton"
 import HomeLayoutBody from "@/components/home-layout/HomeLayoutBody"
@@ -8,10 +7,12 @@ import Footer from "@/components/Footer"
 
 /* TODO
     BUGS:
+    - Al actualizar en VideoPlayerLayout el vídeo no se reproduce automáticamente
+    - Cuando el vídeo se acaba en el reproductor no cambia el botón de play
     - Arreglar el problema de cors para el deploy en Vercel
     MEJORAS:
     - Mirar la cosa que me ha dicho el Jesús para la rula de settings
-    - En pantallas grandes, en el grid, que los vídeos se hagan más pequeños, para que quepan más y no haya tanta separación.
+    - En pantallas grandes, en el grid, que no haya tanta separación.
     - Añadir el debounce a los buscadores (Creo que no hace falta)
     - Repensar dónde se hace el fetching de datos y cómo manejar los estados -> Más estilo Next y menos React
     FEATURES:
