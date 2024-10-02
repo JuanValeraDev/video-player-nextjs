@@ -5,13 +5,17 @@ import {VideoType} from "@/types/VideoType"
 import {useVideoData} from "@/hooks/useVideoData"
 import HomeLayoutBodySkeleton from "@/components/loading/HomeLayoutBodySkeleton"
 
-const HomeLayoutBody = ({filteredVideos}: {
-    filteredVideos: VideoType[]
+const HomeLayoutBody = ({searchTerm}: {
+    searchTerm: string
 }) => {
 
-    const {handleVideoToPlay, handleIncrementLikes, handleIncrementWatches} = useVideoData()
+    const {videos, handleVideoToPlay, handleIncrementLikes, handleIncrementWatches} = useVideoData()
 
     const [isLoading, setIsLoading] = useState(true)
+
+    const filteredVideos = videos.filter(video =>
+        video.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
 
     useEffect(() => {
         const timer = setTimeout(() => setIsLoading(false), 200)

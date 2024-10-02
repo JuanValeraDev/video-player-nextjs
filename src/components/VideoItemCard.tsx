@@ -6,12 +6,14 @@ import {VideoType} from "@/types/VideoType"
 import {useRouter} from "next/navigation"
 import {Card} from "@/components/ui/card"
 
+
 const VideoItemCard = ({video, onChangeVideoPlaying, onIncrementWatches, onIncrementLikes}: {
     video: VideoType,
     onChangeVideoPlaying: (video: VideoType) => void,
     onIncrementLikes: (id: string) => void,
     onIncrementWatches: (id: string) => void
 }) => {
+
     const router = useRouter()
 
     return (

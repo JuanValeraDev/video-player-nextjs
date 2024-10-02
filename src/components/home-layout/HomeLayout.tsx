@@ -8,11 +8,12 @@ import Footer from "@/components/Footer"
 
 /* TODO
     BUGS:
-    - Arreglar el renderizado del grid cuando se hace like
     - Arreglar el problema de cors para el deploy en Vercel
     MEJORAS:
     - Mirar la cosa que me ha dicho el Jesús para la rula de settings
+    - En pantallas grandes, en el grid, que los vídeos se hagan más pequeños, para que quepan más y no haya tanta separación.
     - Añadir el debounce a los buscadores (Creo que no hace falta)
+    - Repensar dónde se hace el fetching de datos y cómo manejar los estados -> Más estilo Next y menos React
     FEATURES:
     - Añadir sistema de usuarios
     - Añadir paginación a las búsquedas
@@ -21,7 +22,6 @@ import Footer from "@/components/Footer"
  */
 
 export default function Home() {
-    const {videos} = useVideoData()
     const [isDarkMode, setIsDarkMode] = useState(false)
     const [searchTerm, setSearchTerm] = useState('')
 
@@ -40,33 +40,30 @@ export default function Home() {
         localStorage.setItem('darkMode', newDarkMode.toString())
     }
 
-    const filteredVideos = videos.filter(video =>
-        video.title.toLowerCase().includes(searchTerm.toLowerCase())
-    )
 
     return (
         <>
-            <header className="bg-background p-4 flex justify-between items-center">
+            <header className="bg-background p-4 flex justify-between items-center flex-col sm:flex-row ">
                 <Link href="/" onClick={() => {
                     setSearchTerm("")
                 }}>
-                    <h1 className="text-2xl font-bold ms-10">Video Player</h1>
+                    <h1 className="text-2xl font-bold my-2 sm:my-0">Video Player</h1>
                 </Link>
                 <input
                     type="text"
                     placeholder="Search videos..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="p-2 border rounded text-secondary-foreground"
+                    className="p-2 border rounded text-secondary-foreground my-2 sm:my-0"
                     style={{ color: 'hsl(var(--input-foreground))'}}
                 />
-                <Button onClick={toggleDarkMode}>
+                <Button onClick={toggleDarkMode} className={"my-2 sm:my-0"}>
                     {isDarkMode ? 'Light Mode' : 'Dark Mode'}
                 </Button>
             </header>
             <div className="flex flex-col max-h-dvh p-0">
                 <Suspense fallback={<HomeLayoutBodySkeleton/>}>
-                    <HomeLayoutBody filteredVideos={filteredVideos}/>
+                    <HomeLayoutBody searchTerm={searchTerm}/>
                 </Suspense>
             </div>
          <Footer/>
