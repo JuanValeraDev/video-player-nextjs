@@ -7,9 +7,9 @@ import Footer from "@/components/Footer"
 
 /* TODO
     BUGS:
+    - Arreglar el problema de cors para el deploy en Vercel
     - Al actualizar en VideoPlayerLayout el vídeo no se reproduce automáticamente
     - Cuando el vídeo se acaba en el reproductor no cambia el botón de play
-    - Arreglar el problema de cors para el deploy en Vercel
     MEJORAS:
     - Mirar la cosa que me ha dicho el Jesús para la rula de settings
     - En pantallas grandes, en el grid, que no haya tanta separación.
