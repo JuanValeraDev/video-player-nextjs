@@ -11,10 +11,10 @@ import Footer from "@/components/Footer"
     - Al actualizar en VideoPlayerLayout el vídeo no se reproduce automáticamente
     - Cuando el vídeo se acaba en el reproductor no cambia el botón de play
     MEJORAS:
-    - Mirar la cosa que me ha dicho el Jesús para la rula de settings
     - En pantallas grandes, en el grid, que no haya tanta separación.
     - Añadir el debounce a los buscadores (Creo que no hace falta)
     - Repensar dónde se hace el fetching de datos y cómo manejar los estados -> Más estilo Next y menos React
+    - Cambiar la miniatura para que sea una imagen guardada en base de datos.
     FEATURES:
     - Añadir sistema de usuarios
     - Añadir paginación a las búsquedas
