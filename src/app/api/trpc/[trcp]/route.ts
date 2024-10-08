@@ -3,12 +3,12 @@ import { appRouter } from '@/server';
 import {withCors} from "@/app/api/trpc/[trcp]/wrapper";
 import {createNextApiHandler} from "@trpc/server/adapters/next";
 
- withCors(
-    createNextApiHandler({
-        router: appRouter,
+const handler = createNextApiHandler({
+    router: appRouter,
+});
 
-    }))
-export { withCors as GET, withCors as POST };
+export const GET = withCors(handler);
+export const POST = withCors(handler);
 
 /*
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
