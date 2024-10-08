@@ -1,7 +1,15 @@
 // src/app/api/trpc/[trpc]/route.ts
-import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import { appRouter } from '@/server';
+import {withCors} from "@/app/api/trpc/[trcp]/wrapper";
+import {createNextApiHandler} from "@trpc/server/adapters/next";
 
+export default withCors(
+    createNextApiHandler({
+        router: appRouter,
+
+    }))
+/*
+import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 const handler = async (request: Request) => {
     if (request.method === 'OPTIONS') {
         return new Response(null, {
@@ -36,3 +44,6 @@ const handler = async (request: Request) => {
 
 export { handler as GET, handler as POST };
 export const runtime = "edge"; // Mantener la configuración del runtime
+
+
+ */
