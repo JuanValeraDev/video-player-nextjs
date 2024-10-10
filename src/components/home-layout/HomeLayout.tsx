@@ -13,13 +13,11 @@ import Footer from "@/components/Footer"
     MEJORAS:
     - En pantallas grandes, en el grid, que no haya tanta separación.
     - Añadir el debounce a los buscadores (Creo que no hace falta)
-    - Repensar dónde se hace el fetching de datos y cómo manejar los estados -> Más estilo Next y menos React
     - Cambiar la miniatura para que sea una imagen guardada en base de datos.
     FEATURES:
     - Añadir sistema de usuarios
     - Añadir paginación a las búsquedas
     - Añadir sistema de comentarios
-    - Añadir que se empiece a reproducir el vídeo en la miniatura al poner el ratón encima
  */
 
 export default function Home() {
