@@ -36,7 +36,7 @@ const VideoList = ({videos, videoPlaying, onChangeVideoPlaying, onIncrementLikes
                 />
             </div>
             <div
-                className="flex-grow overflow-y-auto  p-4 flex flex-row lg:flex lg:flex-col gap-4 bg-secondary rounded-lg">
+                className="flex-grow overflow-y-auto  p-4 flex flex-row lg:flex lg:flex-col gap-4 bg-secondary rounded-lg lg:self-center">
                 {filteredVideos.map((video) => (
                     <VideoItemCard
                         key={video.id}

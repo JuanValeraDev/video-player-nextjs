@@ -210,10 +210,6 @@ const VideoPlayer = ({video}: VideoTypeProps
                             toggleFullscreen()
                         }}>{isFullscreen ?
                             <Minimize className="h-4 w-4"/> : <Maximize className="h-4 w-4"/>}</Button>
-                        <Button variant="ghost" size="icon" onClick={(event) => {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }}><Settings className="h-4 w-4"/></Button>
                     </div>
                 </div>
             </div>

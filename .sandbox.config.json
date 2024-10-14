@@ -1,6 +1,0 @@
-{
-  "npm": {
-    "preferredInstallCommand": "pnpm",
-    "preferredRunCommand": "pnpm"
-  }
-}
