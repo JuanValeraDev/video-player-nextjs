@@ -3,7 +3,7 @@
 import {useState, useRef, useEffect} from 'react'
 import {Slider} from "@/components/ui/slider"
 import {Button} from "@/components/ui/button"
-import {Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Maximize, Minimize, Settings} from 'lucide-react'
+import {Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Maximize, Minimize} from 'lucide-react'
 import {VideoTypeProps} from "@/types/VideoType"
 import {useVideoData} from "@/hooks/useVideoData";
 
