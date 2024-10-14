@@ -12,12 +12,7 @@ import Footer from "@/components/Footer"
     - Cuando el vídeo se acaba en el reproductor no cambia el botón de play
     MEJORAS:
     - En pantallas grandes, en el grid, que no haya tanta separación.
-    - Añadir el debounce a los buscadores (Creo que no hace falta)
     - Cambiar la miniatura para que sea una imagen guardada en base de datos.
-    FEATURES:
-    - Añadir sistema de usuarios
-    - Añadir paginación a las búsquedas
-    - Añadir sistema de comentarios
  */
 
 export default function Home() {
